@@ -1,5 +1,5 @@
 {
-  "name": "@acme/expo",
+  "name": "@liftup/expo",
   "version": "0.1.0",
   "main": "index.ts",
   "scripts": {
@@ -8,23 +8,27 @@
     "dev:android": "expo start --android",
     "dev:ios": "expo start --ios",
     "lint": "eslint",
-    "type-check": "tsc --noEmit"
+    "type-check": "tsc --noEmit",
+    "start": "expo start --dev-client",
+    "android": "expo run:android",
+    "ios": "expo run:ios"
   },
   "dependencies": {
-    "@acme/api": "*",
-    "@acme/tailwind-config": "*",
+    "@liftup/api": "*",
+    "@liftup/tailwind-config": "*",
     "@shopify/flash-list": "^1.4.0",
     "@tanstack/react-query": "^4.20.4",
     "@trpc/client": "^10.5.0",
     "@trpc/react-query": "^10.5.0",
     "@trpc/server": "^10.5.0",
-    "expo": "~47.0.6",
+    "expo": "~47.0.12",
     "expo-status-bar": "~1.4.2",
     "nativewind": "^2.0.11",
-    "react": "18.2.0",
+    "react": "18.1.0",
     "react-dom": "18.2.0",
-    "react-native": "0.71.0-rc.0",
-    "react-native-safe-area-context": "4.4.1"
+    "react-native": "0.70.5",
+    "react-native-safe-area-context": "4.4.1",
+    "expo-splash-screen": "~0.17.5"
   },
   "devDependencies": {
     "@babel/core": "^7.19.3",
