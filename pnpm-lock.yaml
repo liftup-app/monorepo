@@ -72,6 +72,7 @@ importers:
       babel-plugin-module-resolver: ^5.0.0
       babel-plugin-transform-inline-environment-variables: ^0.4.4
       base64-arraybuffer: ^1.0.2
+      clsx: ^1.2.1
       eslint: ^8.30.0
       expo: ~47.0.12
       expo-auth-session: ~3.8.0
@@ -120,6 +121,7 @@ importers:
       '@trpc/react-query': 10.5.0_i3dtll4wap6qoc2qagsvdcddwq
       '@trpc/server': 10.5.0
       base64-arraybuffer: 1.0.2
+      clsx: 1.2.1
       expo: 47.0.12_@babel+core@7.19.3
       expo-auth-session: 3.8.0_4m4imlv76ixyjfjgq3ewjvqgpe
       expo-constants: 14.0.2_expo@47.0.12
@@ -3876,6 +3878,11 @@ packages:
   /clone/2.1.2:
     resolution: {integrity: sha512-3Pe/CF1Nn94hyhIYpjtiLhdCoEoz0DqQ+988E9gmeEdQZlojxnOb74wctFyuwWQHzqyf9X7C7MG8juUpqBJT8w==}
     engines: {node: '>=0.8'}
+    dev: false
+
+  /clsx/1.2.1:
+    resolution: {integrity: sha512-EcR6r5a8bj6pu3ycsa/E/cKVGuTgZJZdsyUYHOksG/UHIiKfjxzRxYJpyVBwYaQeOvghal9fcc4PidlgzugAQg==}
+    engines: {node: '>=6'}
     dev: false
 
   /collection-visit/1.0.0:

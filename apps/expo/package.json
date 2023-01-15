@@ -34,6 +34,7 @@
     "@trpc/react-query": "^10.5.0",
     "@trpc/server": "^10.5.0",
     "base64-arraybuffer": "^1.0.2",
+    "clsx": "^1.2.1",
     "expo": "~47.0.12",
     "expo-auth-session": "~3.8.0",
     "expo-constants": "^14.0.2",
