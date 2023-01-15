@@ -1,17 +1,20 @@
-import { StatusBar } from "expo-status-bar";
-import React from "react";
-import { SafeAreaProvider } from "react-native-safe-area-context";
-import { TRPCProvider } from "./utils/trpc";
+import 'react-native-url-polyfill/auto';
 
-import { HomeScreen } from "./screens/home";
+import React from 'react';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
-export const App = () => {
-  return (
-    <TRPCProvider>
-      <SafeAreaProvider>
-        <HomeScreen />
-        <StatusBar />
-      </SafeAreaProvider>
-    </TRPCProvider>
-  );
-};
+import AuthProvider from '../components/AuthProvider';
+import NavigationContainer from '../components/Navigation/NavigationContainer';
+import TRPCProvider from './utils/trpc';
+
+export default function App() {
+    return (
+        <TRPCProvider>
+            <AuthProvider>
+                <SafeAreaProvider>
+                    <NavigationContainer />
+                </SafeAreaProvider>
+            </AuthProvider>
+        </TRPCProvider>
+    );
+}

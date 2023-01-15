@@ -1,13 +1,13 @@
-import { getServerSession, type Session } from "@liftup/auth";
-import { prisma } from "@liftup/db";
-import { type inferAsyncReturnType } from "@trpc/server";
-import { type CreateNextContextOptions } from "@trpc/server/adapters/next";
+import { type Session, getServerSession } from '@liftup/auth';
+import { prisma } from '@liftup/db';
+import { type inferAsyncReturnType } from '@trpc/server';
+import { type CreateNextContextOptions } from '@trpc/server/adapters/next';
 
 /**
  * Replace this with an object if you want to pass things to createContextInner
  */
 type CreateContextOptions = {
-  session: Session | null;
+    session: Session | null;
 };
 
 /** Use this helper for:
@@ -16,22 +16,22 @@ type CreateContextOptions = {
  * @see https://beta.create.t3.gg/en/usage/trpc#-servertrpccontextts
  */
 export const createContextInner = (opts: CreateContextOptions) => {
-  return {
-    session: opts.session,
-    prisma,
-  };
+    return {
+        session: opts.session,
+        prisma,
+    };
 };
 
 /**
  * This is the actual context you'll use in your router
  * @link https://trpc.io/docs/context
- **/
+ * */
 export const createContext = async (opts: CreateNextContextOptions) => {
-  const session = await getServerSession(opts);
+    const session = await getServerSession(opts);
 
-  return createContextInner({
-    session,
-  });
+    return createContextInner({
+        session,
+    });
 };
 
 export type Context = inferAsyncReturnType<typeof createContext>;
