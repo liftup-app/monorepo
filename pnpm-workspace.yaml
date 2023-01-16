@@ -1,6 +1,7 @@
 packages:
-  - apps/expo
-  - packages/api
-  - packages/auth
-  - packages/db
-  - packages/config/*
+    - apps/expo
+    - packages/api
+    - packages/auth
+    - packages/db
+    - packages/config/*
+    - packages/utils

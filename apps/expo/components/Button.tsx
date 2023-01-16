@@ -1,8 +1,8 @@
+import clsx from 'clsx';
 import { styled } from 'nativewind';
 import { Text, TouchableOpacity } from 'react-native';
-
 // Add variant to styled() components
-export const Button = styled(TouchableOpacity, 'border rounded', {
+export const Button = styled(TouchableOpacity, clsx('border rounded'), {
     variants: {
         intent: {
             primary: 'bg-blue-600 border-slate-900 border hover:bg-blue-600',
@@ -18,6 +18,11 @@ export const Button = styled(TouchableOpacity, 'border rounded', {
         size: 'medium',
     },
 });
+
+export interface ButtonProps {
+    variant: 'primary' | 'secondary';
+}
+export function Button({ variant, size });
 
 export const ButtonText = styled(Text, 'font-semibold', {
     variants: {

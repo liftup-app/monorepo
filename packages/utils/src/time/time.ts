@@ -1,4 +1,5 @@
-export default function msToYoutubeTimeString(milliseconds: number) {
+// eslint-disable-next-line import/prefer-default-export
+export function msToYoutubeTimeString(milliseconds: number) {
     let seconds = Math.floor(milliseconds / 1000);
     let minutes = Math.floor(seconds / 60);
     const hours = Math.floor(minutes / 60);

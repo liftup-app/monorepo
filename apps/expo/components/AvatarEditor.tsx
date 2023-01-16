@@ -1,37 +1,19 @@
 import { decode } from 'base64-arraybuffer';
 import * as ImagePicker from 'expo-image-picker';
 import { useEffect, useState } from 'react';
-import { Alert, Button, Image, StyleSheet, View } from 'react-native';
+import { Alert } from 'react-native';
 
 import supabase from '../lib/supabase';
-
-const styles = StyleSheet.create({
-    avatar: {
-        borderRadius: 5,
-        overflow: 'hidden',
-        maxWidth: '100%',
-    },
-    image: {
-        objectFit: 'cover',
-        paddingTop: 0,
-    },
-    noImage: {
-        backgroundColor: '#333',
-        border: '1px solid rgb(200, 200, 200)',
-        borderRadius: 5,
-    },
-});
+import EditableAvatar from './design-system/EditableAvatar';
 
 interface Props {
-    size: number;
     url: string | null;
     onUpload: (filePath: string) => void;
 }
 
-export default function Avatar({ url, size = 150, onUpload }: Props) {
+export default function AvatarEditor({ url, onUpload }: Props) {
     const [uploading, setUploading] = useState(false);
     const [avatarUrl, setAvatarUrl] = useState<string | null>(null);
-    const avatarSize = { height: size, width: size };
 
     async function downloadImage(path: string) {
         try {
@@ -71,12 +53,13 @@ export default function Avatar({ url, size = 150, onUpload }: Props) {
         });
 
         if (result.canceled || result.assets?.length !== 1) {
+            setUploading(false);
             return;
         }
 
         const photo = result.assets[0];
 
-        if (!photo.base64) {
+        if (!photo?.base64) {
             return;
         }
 
@@ -101,23 +84,12 @@ export default function Avatar({ url, size = 150, onUpload }: Props) {
     }
 
     return (
-        <View>
-            {avatarUrl ? (
-                <Image
-                    source={{ uri: avatarUrl }}
-                    accessibilityLabel='Avatar'
-                    style={[avatarSize, styles.avatar, styles.image]}
-                />
-            ) : (
-                <View style={[avatarSize, styles.avatar, styles.noImage]} />
-            )}
-            <View>
-                <Button
-                    title={uploading ? 'Uploading ...' : 'Upload'}
-                    onPress={uploadAvatar}
-                    disabled={uploading}
-                />
-            </View>
-        </View>
+        <EditableAvatar
+            fullName='Satya Patel'
+            onPress={uploadAvatar}
+            disabled={uploading}
+            source={{ uri: avatarUrl || undefined }}
+            accessibilityLabel='Avatar'
+        />
     );
 }

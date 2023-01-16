@@ -1,17 +1,13 @@
+import { Button, Input } from 'native-base';
 import { useEffect, useState } from 'react';
 import { Alert, StyleSheet, View } from 'react-native';
-import { Button, Input } from 'react-native-elements';
 
 import supabase from '../lib/supabase';
 import useGlobalStore from '../src/hooks/useGlobalStore';
 import useManageBottomTabBarHeight from '../src/hooks/useManageBottomTabBarHeight';
-import Avatar from './Avatar';
+import AvatarEditor from './AvatarEditor';
 
 const styles = StyleSheet.create({
-    container: {
-        marginTop: 40,
-        padding: 12,
-    },
     verticallySpaced: {
         paddingTop: 4,
         paddingBottom: 4,
@@ -108,10 +104,9 @@ export default function Account() {
     }
 
     return (
-        <View className='p-4'>
+        <View className='bg-slate-800 p-4'>
             <View className='w-full items-center justify-center'>
-                <Avatar
-                    size={200}
+                <AvatarEditor
                     url={avatarUrl}
                     onUpload={(url: string) => {
                         setAvatarUrl(url);
@@ -121,18 +116,18 @@ export default function Account() {
                 />
             </View>
             <View style={[styles.verticallySpaced, styles.mt20]}>
-                <Input label='Email' value={user?.email} disabled />
+                <Input placeholder='Email' value={user?.email} size='md' isDisabled />
             </View>
             <View style={styles.verticallySpaced}>
                 <Input
-                    label='Username'
+                    placeholder='Username'
                     value={username || ''}
                     onChangeText={(text) => setUsername(text)}
                 />
             </View>
             <View style={styles.verticallySpaced}>
                 <Input
-                    label='Website'
+                    placeholder='Website'
                     value={website || ''}
                     onChangeText={(text) => setWebsite(text)}
                 />
@@ -140,16 +135,19 @@ export default function Account() {
 
             <View style={[styles.verticallySpaced, styles.mt20]}>
                 <Button
-                    title={loading ? 'Loading ...' : 'Update'}
                     // eslint-disable-next-line @typescript-eslint/no-misused-promises
                     onPress={() => updateProfile({ username, website, avatar_url: avatarUrl })}
                     disabled={loading}
-                />
+                >
+                    {loading ? 'Loading ...' : 'Update'}
+                </Button>
             </View>
 
             <View style={styles.verticallySpaced}>
                 {/* eslint-disable-next-line @typescript-eslint/no-misused-promises */}
-                <Button title='Sign Out' onPress={() => supabase.auth.signOut()} />
+                <Button variant='outline' onPress={() => supabase.auth.signOut()}>
+                    Sign Out
+                </Button>
             </View>
         </View>
     );

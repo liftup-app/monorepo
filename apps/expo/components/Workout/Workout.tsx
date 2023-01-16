@@ -1,11 +1,11 @@
 import BottomSheet, { BottomSheetScrollView, BottomSheetView } from '@gorhom/bottom-sheet';
+import { msToYoutubeTimeString } from '@liftup/utils';
 import { useCallback, useState } from 'react';
 import { Text } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import useGlobalStore from '../../src/hooks/useGlobalStore';
 import useTimer from '../../src/hooks/useTimer';
-import msToYoutubeTimeString from '../../src/utils/msToYoutubeTimeString';
 import { Button, ButtonText } from '../Button';
 
 const SNAP_POINTS = ['15%', '100%'];

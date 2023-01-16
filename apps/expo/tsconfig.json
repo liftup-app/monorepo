@@ -1,8 +1,14 @@
 {
-  "extends": "../../tsconfig.json",
-  "compilerOptions": {
-    "strict": true,
-    "jsx": "react-native"
-  },
-  "include": ["src", "index.ts", "../../packages/auth/next-auth.d.ts"]
+    "extends": "../../tsconfig.json",
+    "compilerOptions": {
+        "strict": true,
+        "jsx": "react-native"
+    },
+    "include": [
+        "src",
+        "components",
+        "index.ts",
+        "declarations.d.ts",
+        "../../packages/auth/next-auth.d.ts"
+    ]
 }

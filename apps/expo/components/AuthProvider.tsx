@@ -4,7 +4,7 @@ import { ReactNode, useEffect } from 'react';
 
 import supabase from '../lib/supabase';
 import useGlobalStore from '../src/hooks/useGlobalStore';
-import Auth from './Auth';
+import Login from '../src/screens/Login';
 
 export interface AuthWrapperProps {
     children?: ReactNode;
@@ -32,7 +32,7 @@ export default function AuthWrapper({ children }: AuthWrapperProps) {
     }, [setUser]);
 
     if (!user) {
-        return <Auth />;
+        return <Login />;
     }
 
     // eslint-disable-next-line react/jsx-no-useless-fragment
