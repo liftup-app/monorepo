@@ -8,7 +8,7 @@ import { SafeAreaView } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 import AuthProvider from '../components/AuthProvider';
-import NavigationContainer from '../components/Navigation/NavigationContainer';
+import NavigationContainer from '../components/NavigationContainer';
 import TRPCProvider from './utils/trpc';
 
 const config = {
