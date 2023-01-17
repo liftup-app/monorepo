@@ -3,10 +3,9 @@ import 'react-native-url-polyfill/auto';
 import { LinearGradient } from 'expo-linear-gradient';
 import { StatusBar } from 'expo-status-bar';
 import { extendTheme, NativeBaseProvider } from 'native-base';
-import { styled } from 'nativewind';
 import React from 'react';
-import { SafeAreaView as BaseSafeAreaView, StyleSheet } from 'react-native';
-import { SafeAreaProvider as BaseSafeAreaProvider } from 'react-native-safe-area-context';
+import { SafeAreaView } from 'react-native';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 import AuthProvider from '../components/AuthProvider';
 import NavigationContainer from '../components/Navigation/NavigationContainer';
@@ -17,14 +16,6 @@ const config = {
         'linear-gradient': LinearGradient,
     },
 };
-
-const SafeAreaProvider = styled(BaseSafeAreaProvider);
-const SafeAreaView = styled(BaseSafeAreaView);
-const styles = StyleSheet.create({
-    container: {
-        backgroundColor: '#262626',
-    },
-});
 
 export default function App() {
     const theme = extendTheme({
@@ -53,7 +44,7 @@ export default function App() {
             <NativeBaseProvider theme={theme} config={config}>
                 <AuthProvider>
                     <SafeAreaProvider>
-                        <StatusBar style='dark' />
+                        <StatusBar style='light' />
                         <SafeAreaView className='flex h-full w-full bg-slate-800'>
                             <NavigationContainer />
                         </SafeAreaView>

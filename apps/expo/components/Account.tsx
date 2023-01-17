@@ -1,6 +1,6 @@
 import { Button, Input } from 'native-base';
 import { useEffect, useState } from 'react';
-import { Alert, StyleSheet, View } from 'react-native';
+import { Alert, ScrollView, StyleSheet, View } from 'react-native';
 
 import supabase from '../lib/supabase';
 import useGlobalStore from '../src/hooks/useGlobalStore';
@@ -104,7 +104,7 @@ export default function Account() {
     }
 
     return (
-        <View className='bg-slate-800 p-4'>
+        <ScrollView className='flex h-full w-full bg-slate-800 p-4'>
             <View className='w-full items-center justify-center'>
                 <AvatarEditor
                     url={avatarUrl}
@@ -149,6 +149,6 @@ export default function Account() {
                     Sign Out
                 </Button>
             </View>
-        </View>
+        </ScrollView>
     );
 }
