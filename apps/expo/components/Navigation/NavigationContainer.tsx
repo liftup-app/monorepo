@@ -7,7 +7,7 @@ import useGlobalStore from '../../src/hooks/useGlobalStore';
 import Workout from '../Workout';
 import BottomTabBar from './BottomTabBar';
 import Header from './Header';
-import ROUTES from './Routes';
+import ROUTES from './routes';
 
 const Tab = createBottomTabNavigator();
 

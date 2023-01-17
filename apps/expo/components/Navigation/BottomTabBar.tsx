@@ -2,6 +2,7 @@ import { BottomTabBarProps } from '@react-navigation/bottom-tabs';
 import { View } from 'react-native';
 
 import BottomTabBarButton from './BottomTabBarButton';
+import ROUTES from './routes';
 
 export default function BottomTabBar({ state, navigation }: BottomTabBarProps) {
     return (
