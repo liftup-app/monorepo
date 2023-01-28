@@ -1,8 +1,17 @@
-import { View } from 'react-native';
+import { Button } from 'native-base';
+import { ScrollView, StyleSheet } from 'react-native';
 
 import useGlobalStore from '../../src/hooks/useGlobalStore';
 import useManageBottomTabBarHeight from '../../src/hooks/useManageBottomTabBarHeight';
-import { Button, ButtonText } from '../Button';
+
+const styles = StyleSheet.create({
+    scrollView: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        flex: 1,
+        flexDirection: 'column',
+    },
+});
 
 export default function NewWorkout() {
     const setRecordingWorkout = useGlobalStore((state) => state.setRecordingWorkout);
@@ -10,10 +19,11 @@ export default function NewWorkout() {
     useManageBottomTabBarHeight();
 
     return (
-        <View className='flex h-full w-full flex-1 flex-col items-center justify-center'>
-            <Button onPress={() => setRecordingWorkout(true)}>
-                <ButtonText>Start workout</ButtonText>
-            </Button>
-        </View>
+        <ScrollView
+            contentContainerStyle={styles.scrollView}
+            className='h-full w-full flex-col bg-slate-800'
+        >
+            <Button onPress={() => setRecordingWorkout(true)}>Start Workout</Button>
+        </ScrollView>
     );
 }

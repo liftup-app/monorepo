@@ -1,14 +1,36 @@
-import BottomSheet, { BottomSheetScrollView, BottomSheetView } from '@gorhom/bottom-sheet';
+import BottomSheet, {
+    BottomSheetHandleProps,
+    BottomSheetScrollView,
+    BottomSheetView as BaseBottomSheetView,
+} from '@gorhom/bottom-sheet';
 import { msToYoutubeTimeString } from '@liftup/utils';
+import { Button } from 'native-base';
+import { styled } from 'nativewind';
 import { useCallback, useState } from 'react';
-import { Text } from 'react-native';
+import { Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import colors from 'tailwindcss/colors';
 
 import useGlobalStore from '../../src/hooks/useGlobalStore';
 import useTimer from '../../src/hooks/useTimer';
-import { Button, ButtonText } from '../Button';
 
-const SNAP_POINTS = ['15%', '100%'];
+const SNAP_POINTS = ['12%', '100%'];
+
+interface WorkoutProps {
+    time: string;
+    name: string;
+}
+
+const BottomSheetView = styled(BaseBottomSheetView);
+
+function CollapsedWorkoutView({ time, name }: WorkoutProps) {
+    return (
+        <BottomSheetView className='items-center justify-center'>
+            <Text className='text-lg font-semibold text-white'>{name}</Text>
+            <Text className='text-sm font-semibold text-slate-300'>{time}</Text>
+        </BottomSheetView>
+    );
+}
 
 export default function Workout() {
     const { top: topSafeArea } = useSafeAreaInsets();
@@ -27,19 +49,17 @@ export default function Workout() {
             topInset={topSafeArea}
             snapPoints={SNAP_POINTS}
             onChange={handleSheetChanges}
+            backgroundStyle={{ backgroundColor: colors.slate['600'] }}
+            handleIndicatorStyle={{ backgroundColor: colors.slate['200'] }}
         >
             {collapsed ? (
-                <BottomSheetView className='flex h-full w-full flex-1 flex-col'>
-                    <Text>{msToYoutubeTimeString(time)}</Text>
-                </BottomSheetView>
+                <CollapsedWorkoutView time={msToYoutubeTimeString(time)} name='Evening workout' />
             ) : (
                 <BottomSheetScrollView
                     contentContainerStyle={{ alignItems: 'center', justifyContent: 'flex-start' }}
                     className='flex h-full w-full flex-1 flex-col'
                 >
-                    <Button onPress={() => setRecordingWorkout(false)}>
-                        <ButtonText>Stop workout</ButtonText>
-                    </Button>
+                    <Button onPress={() => setRecordingWorkout(false)}>Stop workout</Button>
                 </BottomSheetScrollView>
             )}
         </BottomSheet>

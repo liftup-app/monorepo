@@ -6,7 +6,7 @@ import ROUTES from './routes';
 
 export default function BottomTabBar({ state, navigation }: BottomTabBarProps) {
     return (
-        <View className='flex h-16 w-full flex-row items-center justify-around border-t border-slate-700 bg-slate-800'>
+        <View className='flex h-20 w-full flex-row items-center justify-around border-t border-slate-700 bg-slate-800'>
             {state.routes.map((route, index) => {
                 const focused = index === state.index;
 
