@@ -2,9 +2,9 @@ import { Button, Spacer } from 'native-base';
 import { ReactNode } from 'react';
 import { PressableProps, Text, View } from 'react-native';
 
-import AppleIcon from '../../assets/social/apple.svg';
-import FacebookIcon from '../../assets/social/facebook.svg';
-import GoogleIcon from '../../assets/social/google.svg';
+import AppleIcon from '../../../assets/social/apple.svg';
+import FacebookIcon from '../../../assets/social/facebook.svg';
+import GoogleIcon from '../../../assets/social/google.svg';
 import Screen from '../../components/Screen';
 import { signUpWithGoogle } from '../../lib/auth';
 
@@ -47,7 +47,6 @@ export default function Login() {
                 />
                 <Spacer size={4} />
                 <LoginButton
-                    // eslint-disable-next-line @typescript-eslint/no-misused-promises
                     onPress={() => signUpWithGoogle()}
                     text='Continue with Google'
                     icon={<GoogleIcon width={24} height={24} />}

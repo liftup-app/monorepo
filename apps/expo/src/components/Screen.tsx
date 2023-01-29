@@ -10,9 +10,7 @@ export default function Screen({ children }: ScreenProps) {
     return (
         <SafeAreaProvider>
             <StatusBar style='light' />
-            <SafeAreaView className='flex h-full w-full flex-1 items-center space-y-4 bg-slate-800 p-8'>
-                {children}
-            </SafeAreaView>
+            <SafeAreaView className='flex h-full w-full bg-slate-800'>{children}</SafeAreaView>
         </SafeAreaProvider>
     );
 }

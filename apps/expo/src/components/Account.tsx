@@ -2,9 +2,9 @@ import { Button, Input } from 'native-base';
 import { useEffect, useState } from 'react';
 import { Alert, ScrollView, StyleSheet, View } from 'react-native';
 
+import useGlobalStore from '../hooks/useGlobalStore';
+import useManageBottomTabBarHeight from '../hooks/useManageBottomTabBarHeight';
 import supabase from '../lib/supabase';
-import useGlobalStore from '../src/hooks/useGlobalStore';
-import useManageBottomTabBarHeight from '../src/hooks/useManageBottomTabBarHeight';
 import AvatarEditor from './AvatarEditor';
 
 const styles = StyleSheet.create({

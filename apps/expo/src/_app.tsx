@@ -1,14 +1,11 @@
 import 'react-native-url-polyfill/auto';
 
 import { LinearGradient } from 'expo-linear-gradient';
-import { StatusBar } from 'expo-status-bar';
 import { extendTheme, NativeBaseProvider } from 'native-base';
 import React from 'react';
-import { SafeAreaView } from 'react-native';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
 
-import AuthProvider from '../components/AuthProvider';
-import NavigationContainer from '../components/NavigationContainer';
+import AuthProvider from './components/AuthProvider';
+import Main from './screens/Main/Main';
 import TRPCProvider from './utils/trpc';
 
 const config = {
@@ -43,12 +40,7 @@ export default function App() {
         <TRPCProvider>
             <NativeBaseProvider theme={theme} config={config}>
                 <AuthProvider>
-                    <SafeAreaProvider>
-                        <StatusBar style='light' />
-                        <SafeAreaView className='flex h-full w-full bg-slate-800'>
-                            <NavigationContainer />
-                        </SafeAreaView>
-                    </SafeAreaProvider>
+                    <Main />
                 </AuthProvider>
             </NativeBaseProvider>
         </TRPCProvider>

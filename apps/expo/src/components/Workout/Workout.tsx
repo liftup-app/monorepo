@@ -11,8 +11,8 @@ import { Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import colors from 'tailwindcss/colors';
 
-import useGlobalStore from '../../src/hooks/useGlobalStore';
-import useTimer from '../../src/hooks/useTimer';
+import useGlobalStore from '../../hooks/useGlobalStore';
+import useTimer from '../../hooks/useTimer';
 
 const SNAP_POINTS = ['12%', '100%'];
 

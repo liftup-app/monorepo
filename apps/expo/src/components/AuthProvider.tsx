@@ -3,8 +3,8 @@ import 'react-native-url-polyfill/auto';
 import { ReactNode, useEffect } from 'react';
 
 import supabase from '../lib/supabase';
-import useGlobalStore from '../src/hooks/useGlobalStore';
-import Login from '../src/screens/Login';
+import useGlobalStore from '../hooks/useGlobalStore';
+import Login from '../screens/Login/Login';
 
 export interface AuthWrapperProps {
     children?: ReactNode;

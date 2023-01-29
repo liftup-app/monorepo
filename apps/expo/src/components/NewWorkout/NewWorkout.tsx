@@ -1,8 +1,8 @@
 import { Button } from 'native-base';
 import { ScrollView, StyleSheet } from 'react-native';
 
-import useGlobalStore from '../../src/hooks/useGlobalStore';
-import useManageBottomTabBarHeight from '../../src/hooks/useManageBottomTabBarHeight';
+import useGlobalStore from '../../hooks/useGlobalStore';
+import useManageBottomTabBarHeight from '../../hooks/useManageBottomTabBarHeight';
 
 const styles = StyleSheet.create({
     scrollView: {

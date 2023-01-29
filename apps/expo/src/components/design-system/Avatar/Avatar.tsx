@@ -1,4 +1,4 @@
-import { names } from '@liftup/utils';
+import { names } from '@liftup/utils/names';
 import { Avatar as BaseAvatar, IAvatarProps } from 'native-base';
 import React from 'react';
 

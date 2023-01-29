@@ -2,8 +2,8 @@ import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 import { faHome } from '@fortawesome/free-solid-svg-icons/faHome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons/faPlus';
 
-import Account from '../Account';
-import NewWorkout from '../NewWorkout/NewWorkout';
+import Account from '../../../components/Account';
+import NewWorkout from '../../../components/NewWorkout/NewWorkout';
 
 export interface Route {
     name: string;
