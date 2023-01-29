@@ -1,12 +1,16 @@
+import { faApple } from '@fortawesome/free-brands-svg-icons/faApple';
+import { FontAwesomeIcon as BaseFontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { Button, Spacer } from 'native-base';
+import { styled } from 'nativewind';
 import { ReactNode } from 'react';
 import { PressableProps, Text, View } from 'react-native';
 
-import AppleIcon from '../../../assets/social/apple.svg';
 import FacebookIcon from '../../../assets/social/facebook.svg';
 import GoogleIcon from '../../../assets/social/google.svg';
 import Screen from '../../components/Screen';
 import { signUpWithGoogle } from '../../lib/auth';
+
+const FontAwesomeIcon = styled(BaseFontAwesomeIcon);
 
 interface LoginButtonProps extends PressableProps {
     text: string;
@@ -43,7 +47,7 @@ export default function Login() {
             <View className='flex w-full items-center justify-center py-4'>
                 <LoginButton
                     text='Continue with Apple'
-                    icon={<AppleIcon width={24} height={24} />}
+                    icon={<FontAwesomeIcon className='text-white' size={24} icon={faApple} />}
                 />
                 <Spacer size={4} />
                 <LoginButton

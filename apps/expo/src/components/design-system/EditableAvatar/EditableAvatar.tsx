@@ -1,6 +1,6 @@
 import { faCamera } from '@fortawesome/free-solid-svg-icons/faCamera';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { getInitialsFromFullName } from '@liftup/utils';
+import { names } from '@liftup/utils';
 import clsx from 'clsx';
 import { Avatar, IAvatarProps } from 'native-base';
 import { styled } from 'nativewind';
@@ -28,7 +28,7 @@ export default function EditableAvatar({
             onPress={onPress}
         >
             <Avatar bg='gray.300' size='2xl' {...props}>
-                {!!fullName && getInitialsFromFullName(fullName)}
+                {!!fullName && names.getInitialsFromFullName(fullName)}
                 <Avatar.Badge bg='gray.50' borderWidth={1} borderColor='gray.900'>
                     <View className='flex h-full w-full flex-1 items-center justify-center'>
                         <Icon icon={faCamera} />
