@@ -3,7 +3,7 @@ import BottomSheet, {
     BottomSheetScrollView,
     BottomSheetView as BaseBottomSheetView,
 } from '@gorhom/bottom-sheet';
-import { msToYoutubeTimeString } from '@liftup/utils';
+import { time } from '@liftup/utils';
 import { Button } from 'native-base';
 import { styled } from 'nativewind';
 import { useCallback, useState } from 'react';
@@ -36,7 +36,7 @@ export default function Workout() {
     const { top: topSafeArea } = useSafeAreaInsets();
     const bottomTabBarHeight = useGlobalStore((state) => state.bottomTabBarHeight);
     const setRecordingWorkout = useGlobalStore((state) => state.setRecordingWorkout);
-    const time = useTimer();
+    const currentTime = useTimer();
 
     const [collapsed, setCollapsed] = useState(true);
     const handleSheetChanges = useCallback((index: number) => {
@@ -53,7 +53,10 @@ export default function Workout() {
             handleIndicatorStyle={{ backgroundColor: colors.slate['200'] }}
         >
             {collapsed ? (
-                <CollapsedWorkoutView time={msToYoutubeTimeString(time)} name='Evening workout' />
+                <CollapsedWorkoutView
+                    time={time.msToYoutubeTimeString(currentTime)}
+                    name='Evening workout'
+                />
             ) : (
                 <BottomSheetScrollView
                     contentContainerStyle={{ alignItems: 'center', justifyContent: 'flex-start' }}

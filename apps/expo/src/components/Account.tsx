@@ -104,7 +104,7 @@ export default function Account() {
     }
 
     return (
-        <ScrollView className='flex h-full w-full bg-slate-800 p-4'>
+        <ScrollView className='flex h-full w-full bg-slate-900 p-4'>
             <View className='w-full items-center justify-center'>
                 <AvatarEditor
                     url={avatarUrl}
