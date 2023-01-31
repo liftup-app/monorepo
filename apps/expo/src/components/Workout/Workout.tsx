@@ -1,10 +1,8 @@
 import BottomSheet, { BottomSheetBackdrop, BottomSheetScrollView } from '@gorhom/bottom-sheet';
 import { BottomSheetDefaultBackdropProps } from '@gorhom/bottom-sheet/lib/typescript/components/bottomSheetBackdrop/types';
 import { time } from '@liftup/utils';
-import { Button } from 'native-base';
-import { styled } from 'nativewind';
 import { useCallback, useRef, useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import colors from 'tailwindcss/colors';
 
@@ -42,7 +40,13 @@ export default function Workout() {
 
     const renderBackdrop = useCallback(
         (props: BottomSheetDefaultBackdropProps) => (
-            <BottomSheetBackdrop {...props} disappearsOnIndex={0} appearsOnIndex={1} />
+            <BottomSheetBackdrop
+                {...props}
+                enableTouchThrough
+                pressBehavior='collapse'
+                disappearsOnIndex={0}
+                appearsOnIndex={1}
+            />
         ),
         [],
     );
@@ -51,21 +55,25 @@ export default function Workout() {
         <BottomSheet
             style={styles.bottomSheetShadow}
             ref={sheetRef}
+            snapPoints={SNAP_POINTS}
             bottomInset={bottomTabBarHeight || undefined}
             topInset={topSafeArea}
-            snapPoints={SNAP_POINTS}
             onChange={handleSheetChanges}
             backdropComponent={renderBackdrop}
             backgroundStyle={{ backgroundColor: colors.slate['900'] }}
             handleIndicatorStyle={{ backgroundColor: colors.slate['200'] }}
         >
-            <WorkoutView
-                time={time.msToYoutubeTimeString(currentTime)}
-                name='Evening workout'
-                expanded={expanded}
-                onExpand={handleOpen}
-                onStopWorkout={() => setRecordingWorkout(false)}
-            />
+            <BottomSheetScrollView
+                contentContainerStyle={{ alignItems: 'center', justifyContent: 'flex-start' }}
+                className='flex h-full w-full flex-1 flex-col'
+            >
+                <WorkoutView
+                    time={time.msToYoutubeTimeString(currentTime)}
+                    name='Evening workout'
+                    onExpand={handleOpen}
+                    onStopWorkout={() => setRecordingWorkout(false)}
+                />
+            </BottomSheetScrollView>
         </BottomSheet>
     );
 }

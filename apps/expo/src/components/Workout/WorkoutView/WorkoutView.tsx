@@ -1,5 +1,6 @@
-import { BottomSheetScrollView } from '@gorhom/bottom-sheet';
-import { GestureResponderEvent } from 'react-native';
+import { BottomSheetScrollView, useBottomSheet } from '@gorhom/bottom-sheet';
+import { useEffect } from 'react';
+import { GestureResponderEvent, LayoutChangeEvent } from 'react-native';
 
 import Button from '../../design-system/Button/Button';
 import WorkoutHeader from '../WorkoutHeader/WorkoutHeader';
@@ -7,7 +8,6 @@ import WorkoutHeader from '../WorkoutHeader/WorkoutHeader';
 export interface ExpandedWorkoutViewProps {
     time: string;
     name: string;
-    expanded: boolean;
     onExpand?: () => void;
     onStopWorkout?: (event: GestureResponderEvent) => void | null;
 }
@@ -15,17 +15,20 @@ export interface ExpandedWorkoutViewProps {
 export default function WorkoutView({
     time,
     name,
-    expanded,
     onExpand,
     onStopWorkout,
 }: ExpandedWorkoutViewProps) {
+    const { animatedIndex } = useBottomSheet();
+
     return (
-        <BottomSheetScrollView
-            contentContainerStyle={{ alignItems: 'center', justifyContent: 'flex-start' }}
-            className='flex h-full w-full flex-1 flex-col'
-        >
-            <WorkoutHeader expanded={expanded} time={time} name={name} onExpand={onExpand} />
-            <Button onPress={onStopWorkout}>Stop workout</Button>
-        </BottomSheetScrollView>
+        <>
+            <WorkoutHeader
+                amountExpanded={animatedIndex.value}
+                time={time}
+                name={name}
+                onExpand={onExpand}
+            />
+            {/* <Button onPress={onStopWorkout}>Stop workout</Button> */}
+        </>
     );
 }
