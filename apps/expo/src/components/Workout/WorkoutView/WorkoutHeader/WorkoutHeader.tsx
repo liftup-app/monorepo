@@ -1,26 +1,24 @@
-import { BottomSheetView as BaseBottomSheetView } from '@gorhom/bottom-sheet';
-import { styled } from 'nativewind';
-import { Pressable, Text, View } from 'react-native';
+import { GestureResponderEvent, Pressable, Text, View } from 'react-native';
 
-import Button from '../../design-system/Button/Button';
+import Button from '../../../design-system/Button/Button';
 
 interface WorkoutHeaderProps {
     time: string;
     name: string;
     onExpand?: () => void;
+    onFinishWorkout?: (event: GestureResponderEvent) => void | null;
     amountExpanded?: number;
 }
-
-const BottomSheetView = styled(BaseBottomSheetView);
 
 export default function WorkoutHeader({
     time,
     name,
     onExpand,
+    onFinishWorkout,
     amountExpanded = 0,
 }: WorkoutHeaderProps) {
     return (
-        <BottomSheetView className='items-center justify-center'>
+        <View className='flex h-20 items-center justify-center'>
             <Pressable
                 style={{ opacity: 1 - amountExpanded }}
                 className='absolute top-0 flex w-full items-center justify-start'
@@ -31,10 +29,15 @@ export default function WorkoutHeader({
             </Pressable>
             <View
                 style={{ opacity: amountExpanded }}
-                className='absolute top-0 flex w-full flex-row items-center justify-end px-4'
+                className='absolute top-0 flex w-full flex-row items-center justify-end'
             >
-                <Button backgroundColor='#16a34a'>Finish Workout</Button>
+                <Button
+                    onPress={amountExpanded > 0.85 ? onFinishWorkout : undefined}
+                    backgroundColor='#16a34a'
+                >
+                    Finish
+                </Button>
             </View>
-        </BottomSheetView>
+        </View>
     );
 }

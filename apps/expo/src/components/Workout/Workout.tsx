@@ -24,6 +24,7 @@ const SNAP_POINTS = ['12%', '100%'];
 
 export default function Workout() {
     const { top: topSafeArea } = useSafeAreaInsets();
+    const [name, setName] = useState('Evening Workout');
     const bottomTabBarHeight = useGlobalStore((state) => state.bottomTabBarHeight);
     const setRecordingWorkout = useGlobalStore((state) => state.setRecordingWorkout);
     const currentTime = useTimer();
@@ -31,11 +32,6 @@ export default function Workout() {
     const sheetRef = useRef<BottomSheet>(null);
     const handleOpen = useCallback(() => {
         sheetRef.current?.expand();
-    }, []);
-
-    const [expanded, setExpanded] = useState(false);
-    const handleSheetChanges = useCallback((index: number) => {
-        setExpanded(index === 1);
     }, []);
 
     const renderBackdrop = useCallback(
@@ -58,20 +54,24 @@ export default function Workout() {
             snapPoints={SNAP_POINTS}
             bottomInset={bottomTabBarHeight || undefined}
             topInset={topSafeArea}
-            onChange={handleSheetChanges}
             backdropComponent={renderBackdrop}
             backgroundStyle={{ backgroundColor: colors.slate['900'] }}
             handleIndicatorStyle={{ backgroundColor: colors.slate['200'] }}
         >
             <BottomSheetScrollView
-                contentContainerStyle={{ alignItems: 'center', justifyContent: 'flex-start' }}
-                className='flex h-full w-full flex-1 flex-col'
+                contentContainerStyle={{
+                    alignItems: 'center',
+                    justifyContent: 'flex-start',
+                    paddingHorizontal: 16,
+                }}
             >
                 <WorkoutView
                     time={time.msToYoutubeTimeString(currentTime)}
-                    name='Evening workout'
+                    name={name}
+                    onNameChange={(event) => setName(event.nativeEvent.text)}
                     onExpand={handleOpen}
                     onStopWorkout={() => setRecordingWorkout(false)}
+                    onFinishWorkout={() => setRecordingWorkout(false)}
                 />
             </BottomSheetScrollView>
         </BottomSheet>
