@@ -33,7 +33,7 @@ export default function WorkoutHeader({
             >
                 <Button
                     onPress={amountExpanded > 0.85 ? onFinishWorkout : undefined}
-                    backgroundColor='#16a34a'
+                    className='bg-emerald-600'
                 >
                     Finish
                 </Button>

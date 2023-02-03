@@ -5,6 +5,7 @@ import {
     TextInputChangeEventData,
 } from 'react-native';
 
+import Button from '../../design-system/Button/Button';
 import WorkoutHeader from './WorkoutHeader/WorkoutHeader';
 import WorkoutInfo from './WorkoutInfo/WorkoutInfo';
 
@@ -14,7 +15,7 @@ export interface ExpandedWorkoutViewProps {
     onExpand?: () => void;
     onFinishWorkout?: (event: GestureResponderEvent) => void | null;
     onNameChange?: (e: NativeSyntheticEvent<TextInputChangeEventData>) => void;
-    onStopWorkout?: (event: GestureResponderEvent) => void | null;
+    onDiscardWorkout?: (event: GestureResponderEvent) => void | null;
 }
 
 export default function WorkoutView({
@@ -23,7 +24,7 @@ export default function WorkoutView({
     onExpand,
     onFinishWorkout,
     onNameChange,
-    onStopWorkout,
+    onDiscardWorkout,
 }: ExpandedWorkoutViewProps) {
     const { animatedIndex } = useBottomSheet();
 
@@ -37,6 +38,11 @@ export default function WorkoutView({
                 onFinishWorkout={onFinishWorkout}
             />
             <WorkoutInfo time={time} name={name} onNameChange={onNameChange} />
+
+            <Button className='my-8 w-full'>Finish Workout</Button>
+            <Button onPress={onDiscardWorkout} className='w-full bg-red-600'>
+                Discard Workout
+            </Button>
         </>
     );
 }

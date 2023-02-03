@@ -2,12 +2,14 @@ import BottomSheet, { BottomSheetBackdrop, BottomSheetScrollView } from '@gorhom
 import { BottomSheetDefaultBackdropProps } from '@gorhom/bottom-sheet/lib/typescript/components/bottomSheetBackdrop/types';
 import { time } from '@liftup/utils';
 import { useCallback, useRef, useState } from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import colors from 'tailwindcss/colors';
 
 import useGlobalStore from '../../hooks/useGlobalStore';
 import useTimer from '../../hooks/useTimer';
+import AlertDialog from '../design-system/AlertDialog/AlertDialog';
+import Button from '../design-system/Button/Button';
 import WorkoutView from './WorkoutView/WorkoutView';
 
 const styles = StyleSheet.create({
@@ -27,12 +29,18 @@ export default function Workout() {
     const [name, setName] = useState('Evening Workout');
     const bottomTabBarHeight = useGlobalStore((state) => state.bottomTabBarHeight);
     const setRecordingWorkout = useGlobalStore((state) => state.setRecordingWorkout);
+    const [showCancelWorkoutModal, setShowCancelWorkoutModal] = useState(false);
+
+    const [exercises, setExercises] = useState([]);
+
     const currentTime = useTimer();
 
     const sheetRef = useRef<BottomSheet>(null);
     const handleOpen = useCallback(() => {
         sheetRef.current?.expand();
     }, []);
+
+    const cancelDialogRef = useRef(null);
 
     const renderBackdrop = useCallback(
         (props: BottomSheetDefaultBackdropProps) => (
@@ -48,32 +56,49 @@ export default function Workout() {
     );
 
     return (
-        <BottomSheet
-            style={styles.bottomSheetShadow}
-            ref={sheetRef}
-            snapPoints={SNAP_POINTS}
-            bottomInset={bottomTabBarHeight || undefined}
-            topInset={topSafeArea}
-            backdropComponent={renderBackdrop}
-            backgroundStyle={{ backgroundColor: colors.slate['900'] }}
-            handleIndicatorStyle={{ backgroundColor: colors.slate['200'] }}
-        >
-            <BottomSheetScrollView
-                contentContainerStyle={{
-                    alignItems: 'center',
-                    justifyContent: 'flex-start',
-                    paddingHorizontal: 16,
-                }}
+        <>
+            <AlertDialog
+                leastDestructiveRef={cancelDialogRef}
+                isOpen={showCancelWorkoutModal}
+                title='Discard Workout'
+                description='This action is permanent. Current workout progress will be deleted.'
+                proceedButtonText='Discard'
+                onProceed={() => setRecordingWorkout(false)}
+                onCancel={() => setShowCancelWorkoutModal(false)}
+            />
+            <BottomSheet
+                style={styles.bottomSheetShadow}
+                ref={sheetRef}
+                snapPoints={SNAP_POINTS}
+                bottomInset={bottomTabBarHeight || undefined}
+                topInset={topSafeArea}
+                backdropComponent={renderBackdrop}
+                backgroundStyle={{ backgroundColor: colors.slate['900'] }}
+                handleIndicatorStyle={{ backgroundColor: colors.slate['200'] }}
             >
-                <WorkoutView
-                    time={time.msToYoutubeTimeString(currentTime)}
-                    name={name}
-                    onNameChange={(event) => setName(event.nativeEvent.text)}
-                    onExpand={handleOpen}
-                    onStopWorkout={() => setRecordingWorkout(false)}
-                    onFinishWorkout={() => setRecordingWorkout(false)}
-                />
-            </BottomSheetScrollView>
-        </BottomSheet>
+                <BottomSheetScrollView
+                    contentContainerStyle={{
+                        alignItems: 'center',
+                        justifyContent: 'flex-start',
+                        paddingHorizontal: 16,
+                    }}
+                >
+                    <WorkoutView
+                        time={time.msToYoutubeTimeString(currentTime)}
+                        name={name}
+                        onNameChange={(event) => setName(event.nativeEvent.text)}
+                        onExpand={handleOpen}
+                        onDiscardWorkout={() => {
+                            if (exercises.length === 0) {
+                                setRecordingWorkout(false);
+                            } else {
+                                setShowCancelWorkoutModal(true);
+                            }
+                        }}
+                        onFinishWorkout={() => setRecordingWorkout(false)}
+                    />
+                </BottomSheetScrollView>
+            </BottomSheet>
+        </>
     );
 }
