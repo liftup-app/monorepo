@@ -1,16 +1,20 @@
+import { faWarning } from '@fortawesome/free-solid-svg-icons/faWarning';
+import { FontAwesomeIcon as BaseFontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import BottomSheet, { BottomSheetBackdrop, BottomSheetScrollView } from '@gorhom/bottom-sheet';
 import { BottomSheetDefaultBackdropProps } from '@gorhom/bottom-sheet/lib/typescript/components/bottomSheetBackdrop/types';
 import { time } from '@liftup/utils';
+import { styled } from 'nativewind';
 import { useCallback, useRef, useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import colors from 'tailwindcss/colors';
 
 import useGlobalStore from '../../hooks/useGlobalStore';
 import useTimer from '../../hooks/useTimer';
 import AlertDialog from '../design-system/AlertDialog/AlertDialog';
-import Button from '../design-system/Button/Button';
 import WorkoutView from './WorkoutView/WorkoutView';
+
+const FontAwesomeIcon = styled(BaseFontAwesomeIcon);
 
 const styles = StyleSheet.create({
     bottomSheetShadow: {
@@ -30,7 +34,8 @@ export default function Workout() {
     const bottomTabBarHeight = useGlobalStore((state) => state.bottomTabBarHeight);
     const setRecordingWorkout = useGlobalStore((state) => state.setRecordingWorkout);
     const [showCancelWorkoutModal, setShowCancelWorkoutModal] = useState(false);
-
+    const [showAddExerciseModal, setShowAddExerciseModal] = useState(false);
+    const [showFinishWorkoutModal, setShowFinishWorkoutModal] = useState(false);
     const [exercises, setExercises] = useState([]);
 
     const currentTime = useTimer();
@@ -41,6 +46,7 @@ export default function Workout() {
     }, []);
 
     const cancelDialogRef = useRef(null);
+    const finishWorkoutDialogRef = useRef(null);
 
     const renderBackdrop = useCallback(
         (props: BottomSheetDefaultBackdropProps) => (
@@ -58,13 +64,26 @@ export default function Workout() {
     return (
         <>
             <AlertDialog
+                variant='error'
                 leastDestructiveRef={cancelDialogRef}
                 isOpen={showCancelWorkoutModal}
+                icon={<FontAwesomeIcon className='text-white' icon={faWarning} />}
                 title='Discard Workout'
                 description='This action is permanent. Current workout progress will be deleted.'
                 proceedButtonText='Discard'
                 onProceed={() => setRecordingWorkout(false)}
                 onCancel={() => setShowCancelWorkoutModal(false)}
+            />
+            <AlertDialog
+                variant='success'
+                leastDestructiveRef={finishWorkoutDialogRef}
+                isOpen={showFinishWorkoutModal}
+                icon={<Text>&#127881;</Text>}
+                title='Finish Workout'
+                description='Great job out there today!'
+                proceedButtonText='Finish'
+                onProceed={() => setRecordingWorkout(false)}
+                onCancel={() => setShowFinishWorkoutModal(false)}
             />
             <BottomSheet
                 style={styles.bottomSheetShadow}
@@ -95,7 +114,13 @@ export default function Workout() {
                                 setShowCancelWorkoutModal(true);
                             }
                         }}
-                        onFinishWorkout={() => setRecordingWorkout(false)}
+                        onFinishWorkout={() => {
+                            if (exercises.length === 0) {
+                                setRecordingWorkout(false);
+                            } else {
+                                setShowFinishWorkoutModal(true);
+                            }
+                        }}
                     />
                 </BottomSheetScrollView>
             </BottomSheet>

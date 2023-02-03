@@ -1,5 +1,4 @@
 import { faPlus } from '@fortawesome/free-solid-svg-icons/faPlus';
-import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { Text, View } from 'native-base';
 
 import Button from '../../design-system/Button/Button';

@@ -1,3 +1,4 @@
+import { faPlus } from '@fortawesome/free-solid-svg-icons/faPlus';
 import { useBottomSheet } from '@gorhom/bottom-sheet';
 import {
     GestureResponderEvent,
@@ -39,8 +40,10 @@ export default function WorkoutView({
             />
             <WorkoutInfo time={time} name={name} onNameChange={onNameChange} />
 
-            <Button className='my-8 w-full'>Finish Workout</Button>
-            <Button onPress={onDiscardWorkout} className='w-full bg-red-600'>
+            <Button icon={faPlus} className='my-8 w-full'>
+                Add exercise
+            </Button>
+            <Button colorScheme='danger' onPress={onDiscardWorkout} className='w-full'>
                 Discard Workout
             </Button>
         </>

@@ -2,14 +2,12 @@ import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { AlertDialog as BaseAlertDialog } from 'native-base';
 import { IAlertDialogProps } from 'native-base/lib/typescript/components/composites';
-import { ColorSchemeType } from 'native-base/lib/typescript/components/types';
 import { ReactNode } from 'react';
 import { Text, View } from 'react-native';
 
 import Button from '../Button/Button';
 
-export interface FinishWorkoutDialogProps extends IAlertDialogProps {
-    variant?: ColorSchemeType;
+export interface AlertDialogProps extends IAlertDialogProps {
     title?: string;
     icon?: ReactNode;
     description?: string;
@@ -18,8 +16,7 @@ export interface FinishWorkoutDialogProps extends IAlertDialogProps {
     onProceed?: () => void;
 }
 
-export default function FinishWorkoutDialog({
-    variant,
+export default function AlertDialog({
     leastDestructiveRef,
     isOpen,
     icon,
@@ -28,7 +25,7 @@ export default function FinishWorkoutDialog({
     description,
     onCancel,
     onProceed,
-}: FinishWorkoutDialogProps) {
+}: AlertDialogProps) {
     return (
         <BaseAlertDialog
             leastDestructiveRef={leastDestructiveRef}
@@ -49,7 +46,7 @@ export default function FinishWorkoutDialog({
                             <Button onPress={onCancel} ref={leastDestructiveRef}>
                                 Cancel
                             </Button>
-                            <Button colorScheme={variant} onPress={onProceed}>
+                            <Button colorScheme='danger' onPress={onProceed}>
                                 {proceedButtonText}
                             </Button>
                         </View>
