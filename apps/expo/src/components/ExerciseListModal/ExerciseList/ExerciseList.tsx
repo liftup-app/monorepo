@@ -1,9 +1,9 @@
 import { Exercise, OrganizedExercises } from '@liftup/mocks/src/mockExercises';
 import { SectionList } from 'native-base';
-import { Image, Text, View } from 'react-native';
+import { Image, Pressable, Text, View } from 'react-native';
 
 export interface ExerciseModalProps {
-    onClickExercise?: () => void;
+    onClickExercise?: (exercise: Exercise) => void;
     exercises: OrganizedExercises;
 }
 
@@ -14,10 +14,13 @@ export default function ExerciseList({ exercises, onClickExercise }: ExerciseMod
             sections={exercises}
             keyExtractor={(item) => item.name}
             renderItem={({ item }) => (
-                <View className='flex h-16 w-full items-start justify-center border-b border-slate-800'>
+                <Pressable
+                    onPress={() => onClickExercise?.(item)}
+                    className='flex h-16 w-full items-start justify-center border-b border-slate-800'
+                >
                     <Text className='text-lg text-white'>{item.name}</Text>
                     <Text className='text-slate-400'>{item.category}</Text>
-                </View>
+                </Pressable>
             )}
             renderSectionHeader={({ section: { title } }) => (
                 <View className='flex w-full items-start justify-end border-b border-slate-800 px-1 pt-4 pb-2'>

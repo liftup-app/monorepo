@@ -2,7 +2,8 @@ import { faWarning } from '@fortawesome/free-solid-svg-icons/faWarning';
 import { FontAwesomeIcon as BaseFontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import BottomSheet, { BottomSheetBackdrop, BottomSheetScrollView } from '@gorhom/bottom-sheet';
 import { BottomSheetDefaultBackdropProps } from '@gorhom/bottom-sheet/lib/typescript/components/bottomSheetBackdrop/types';
-import { MOCK_EXERCISES_ORGANIZED } from '@liftup/mocks';
+import { MOCK_EXERCISES } from '@liftup/mocks';
+import { Exercise } from '@liftup/mocks/src/mockExercises';
 import { time } from '@liftup/utils';
 import { styled } from 'nativewind';
 import { useCallback, useRef, useState } from 'react';
@@ -38,7 +39,7 @@ export default function Workout() {
     const [showCancelWorkoutModal, setShowCancelWorkoutModal] = useState(false);
     const [showAddExerciseModal, setShowAddExerciseModal] = useState(false);
     const [showFinishWorkoutModal, setShowFinishWorkoutModal] = useState(false);
-    const [exercises, setExercises] = useState([]);
+    const [exercises, setExercises] = useState<Exercise[]>([]);
 
     const currentTime = useTimer();
 
@@ -88,7 +89,11 @@ export default function Workout() {
                 onCancel={() => setShowFinishWorkoutModal(false)}
             />
             <ExerciseListModal
-                exercises={MOCK_EXERCISES_ORGANIZED}
+                exercises={MOCK_EXERCISES}
+                onClickExercise={(exercise) => {
+                    setExercises([...exercises, exercise]);
+                    setShowAddExerciseModal(false);
+                }}
                 isOpen={showAddExerciseModal}
                 onClose={() => setShowAddExerciseModal(false)}
             />

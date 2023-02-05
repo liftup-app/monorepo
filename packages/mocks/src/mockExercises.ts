@@ -956,21 +956,22 @@ export type OrganizedExercises = {
     data: Exercise[];
 }[];
 
-function organizeMockExercises(): OrganizedExercises {
+export function organizeMockExercises(mockExercises: Exercise[]): OrganizedExercises {
     const sortedExercises: { [key: string]: { title: string; data: Exercise[] } } = {};
 
-    ALPHABET_ARRAY.forEach((letter): void => {
-        sortedExercises[letter] = {
-            title: letter,
-            data: [],
-        };
-    });
+    mockExercises.forEach((exercise) => {
+        const currentIndex = exercise.name.charAt(0);
 
-    MOCK_EXERCISES.forEach((exercise) => {
-        sortedExercises[exercise.name.charAt(0)]?.data.push(exercise);
+        if (!sortedExercises[currentIndex]) {
+            sortedExercises[currentIndex] = {
+                title: currentIndex,
+                data: [],
+            };
+        }
+        sortedExercises[currentIndex]?.data.push(exercise);
     });
 
     return Object.values(sortedExercises);
 }
 
-export const MOCK_EXERCISES_ORGANIZED = organizeMockExercises();
+export const MOCK_EXERCISES_ORGANIZED = organizeMockExercises(MOCK_EXERCISES);
