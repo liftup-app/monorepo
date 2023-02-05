@@ -10,63 +10,68 @@ datasource db {
     shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
 }
 
-model exercise_instances {
+model ExerciseInstance {
     id          BigInt    @id(map: "exercise_instance_pkey") @default(autoincrement())
-    workout_id  BigInt
-    user_id     String    @db.Uuid
-    exercise_id BigInt
-    exercises   exercises @relation(fields: [exercise_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
-    users       users     @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
-    workouts    workouts  @relation(fields: [workout_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
-    sets        sets[]
+    workoutId  BigInt
+    userId     String    @db.Uuid
+    exerciseId BigInt
+    exercise   Exercise @relation(fields: [exerciseId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+    users       User     @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+    workout    Workout  @relation(fields: [workoutId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+    sets        Set[]
 }
 
-model exercises {
+model Exercise {
     id                 BigInt               @id(map: "exercise_pkey") @default(autoincrement())
-    created_at         DateTime?            @default(now()) @db.Timestamptz(6)
+    createdAt         DateTime?            @default(now()) @db.Timestamptz(6)
     title              String               @unique(map: "exercise_title_key") @db.VarChar
-    user_id            String?              @db.Uuid
-    exercise_instances exercise_instances[]
-    users              users?               @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+    userId            String?              @db.Uuid
+    exerciseInstances ExerciseInstance[]
+    users              User?               @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
 
-model sets {
+model Set {
     id                   BigInt             @id @default(autoincrement())
-    created_at           DateTime?          @default(now()) @db.Timestamptz(6)
+    createdAt           DateTime?          @default(now()) @db.Timestamptz(6)
     weight               Int                @db.SmallInt
     repetitions          Int                @db.SmallInt
-    user_id              String             @db.Uuid
-    exercise_instance_id BigInt
-    exercise_instances   exercise_instances @relation(fields: [exercise_instance_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
-    users                users              @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+    userId              String             @db.Uuid
+    exerciseInstanceId BigInt
+    exerciseInstance   ExerciseInstance @relation(fields: [exerciseInstanceId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+    users                User              @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
 
-model users {
+model User {
     id                 String               @id(map: "profiles_pkey") @db.Uuid
-    updated_at         DateTime?            @db.Timestamptz(6)
+    updatedAt         DateTime?            @db.Timestamptz(6)
     username           String?              @unique(map: "profiles_username_key")
-    full_name          String?
-    avatar_url         String?
+    fullName          String?
+    avatarUrl         String?
     website            String?
     email              String?
-    exercise_instances exercise_instances[]
-    exercises          exercises[]
-    sets               sets[]
-    workouts           workouts[]
+    exerciseInstances ExerciseInstance[]
+    exercises          Exercise[]
+    sets               Set[]
+    workouts           Workout[]
 }
 
-model workouts {
+model Workout {
     id                 BigInt               @id(map: "Workout_pkey") @default(autoincrement())
-    created_at         DateTime             @default(now()) @db.Timestamptz(6)
+    createdAt         DateTime             @default(now()) @db.Timestamptz(6)
     title              String               @db.VarChar
     duration           Decimal              @db.Decimal
-    user_id            String               @db.Uuid
-    exercise_instances exercise_instances[]
-    users              users                @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+    userId            String               @db.Uuid
+    exerciseInstances ExerciseInstance[]
+    user              User                @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
 
-enum resistance_t {
-    weighted
-    assisted
-    regular
+enum ExerciseCategory {
+    Arms
+    Legs
+    Back
+    Cardio
+    Chest
+    Core
+    Shoulders
+    Olympic    
 }

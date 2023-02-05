@@ -15,6 +15,7 @@ export interface ExpandedWorkoutViewProps {
     name: string;
     onExpand?: () => void;
     onFinishWorkout?: (event: GestureResponderEvent) => void | null;
+    onAddExercise?: (event: GestureResponderEvent) => void | null;
     onNameChange?: (e: NativeSyntheticEvent<TextInputChangeEventData>) => void;
     onDiscardWorkout?: (event: GestureResponderEvent) => void | null;
 }
@@ -24,6 +25,7 @@ export default function WorkoutView({
     name,
     onExpand,
     onFinishWorkout,
+    onAddExercise,
     onNameChange,
     onDiscardWorkout,
 }: ExpandedWorkoutViewProps) {
@@ -40,7 +42,7 @@ export default function WorkoutView({
             />
             <WorkoutInfo time={time} name={name} onNameChange={onNameChange} />
 
-            <Button icon={faPlus} className='my-8 w-full'>
+            <Button onPress={onAddExercise} icon={faPlus} className='my-8 w-full'>
                 Add exercise
             </Button>
             <Button colorScheme='danger' onPress={onDiscardWorkout} className='w-full'>

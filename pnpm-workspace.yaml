@@ -5,3 +5,4 @@ packages:
     - packages/db
     - packages/config/*
     - packages/utils
+    - packages/mocks

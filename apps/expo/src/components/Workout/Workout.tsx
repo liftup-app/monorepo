@@ -2,6 +2,7 @@ import { faWarning } from '@fortawesome/free-solid-svg-icons/faWarning';
 import { FontAwesomeIcon as BaseFontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import BottomSheet, { BottomSheetBackdrop, BottomSheetScrollView } from '@gorhom/bottom-sheet';
 import { BottomSheetDefaultBackdropProps } from '@gorhom/bottom-sheet/lib/typescript/components/bottomSheetBackdrop/types';
+import { MOCK_EXERCISES_ORGANIZED } from '@liftup/mocks';
 import { time } from '@liftup/utils';
 import { styled } from 'nativewind';
 import { useCallback, useRef, useState } from 'react';
@@ -12,6 +13,7 @@ import colors from 'tailwindcss/colors';
 import useGlobalStore from '../../hooks/useGlobalStore';
 import useTimer from '../../hooks/useTimer';
 import AlertDialog from '../design-system/AlertDialog/AlertDialog';
+import ExerciseListModal from '../ExerciseListModal/ExerciseListModal';
 import WorkoutView from './WorkoutView/WorkoutView';
 
 const FontAwesomeIcon = styled(BaseFontAwesomeIcon);
@@ -29,7 +31,7 @@ const styles = StyleSheet.create({
 const SNAP_POINTS = ['12%', '100%'];
 
 export default function Workout() {
-    const { top: topSafeArea } = useSafeAreaInsets();
+    const { top: safeAreaTop } = useSafeAreaInsets();
     const [name, setName] = useState('Evening Workout');
     const bottomTabBarHeight = useGlobalStore((state) => state.bottomTabBarHeight);
     const setRecordingWorkout = useGlobalStore((state) => state.setRecordingWorkout);
@@ -85,12 +87,17 @@ export default function Workout() {
                 onProceed={() => setRecordingWorkout(false)}
                 onCancel={() => setShowFinishWorkoutModal(false)}
             />
+            <ExerciseListModal
+                exercises={MOCK_EXERCISES_ORGANIZED}
+                isOpen={showAddExerciseModal}
+                onClose={() => setShowAddExerciseModal(false)}
+            />
             <BottomSheet
                 style={styles.bottomSheetShadow}
                 ref={sheetRef}
                 snapPoints={SNAP_POINTS}
                 bottomInset={bottomTabBarHeight || undefined}
-                topInset={topSafeArea}
+                topInset={safeAreaTop}
                 backdropComponent={renderBackdrop}
                 backgroundStyle={{ backgroundColor: colors.slate['900'] }}
                 handleIndicatorStyle={{ backgroundColor: colors.slate['200'] }}
@@ -107,6 +114,7 @@ export default function Workout() {
                         name={name}
                         onNameChange={(event) => setName(event.nativeEvent.text)}
                         onExpand={handleOpen}
+                        onAddExercise={() => setShowAddExerciseModal(true)}
                         onDiscardWorkout={() => {
                             if (exercises.length === 0) {
                                 setRecordingWorkout(false);

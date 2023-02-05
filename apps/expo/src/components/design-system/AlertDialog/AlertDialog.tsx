@@ -1,5 +1,3 @@
-import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
-import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { AlertDialog as BaseAlertDialog } from 'native-base';
 import { IAlertDialogProps } from 'native-base/lib/typescript/components/composites';
 import { ColorSchemeType } from 'native-base/lib/typescript/components/types';
