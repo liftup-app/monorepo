@@ -6,7 +6,8 @@ import { Exercise } from '@liftup/mocks/src/mockExercises';
 import { styled } from 'nativewind';
 import { useState } from 'react';
 import { Text, View } from 'react-native';
-import colors from 'tailwindcss/colors';
+import Swipeable from 'react-native-gesture-handler/Swipeable';
+import { v4 as uuid } from 'uuid';
 
 import Button from '../../../design-system/Button/Button';
 import Input from '../../../design-system/Input/Input';
@@ -17,8 +18,16 @@ interface WorkoutExercisesProps {
     exercises: Exercise[];
 }
 
+function LeftSwipeActions() {
+    return (
+        <View className='flex h-full flex-1 items-end justify-center bg-red-600'>
+            <Text className='px-2 font-bold text-white'>Delete</Text>
+        </View>
+    );
+}
+
 export default function WorkoutExercises({ exercises }: WorkoutExercisesProps) {
-    const [sets, setSets] = useState<Set[]>([{}]);
+    const [sets, setSets] = useState<Set[]>([{ id: uuid() }]);
 
     return (
         <>
@@ -43,45 +52,59 @@ export default function WorkoutExercises({ exercises }: WorkoutExercisesProps) {
                         </View>
                         {sets.map((set, index) => {
                             return (
-                                <View className='my-1 flex w-full flex-row items-center justify-center'>
-                                    <Text className='w-[10%] text-center text-lg font-semibold text-slate-100'>
-                                        {index + 1}
-                                    </Text>
-                                    <Text className='w-[30%] text-center font-semibold text-slate-100 '>
-                                        42.5 lb x 12
-                                    </Text>
-                                    <Text>{set.reps}</Text>
-                                    <View className='w-[25%] items-center justify-center'>
-                                        <Input
-                                            className='py-1 text-center'
-                                            size='lg'
-                                            width='70%'
-                                            keyboardType='decimal-pad'
-                                            // onChangeText={(text) => setSearchText(text)}
-                                            // value={searchText}
-                                        />
+                                <Swipeable
+                                    key={set.id}
+                                    onSwipeableOpen={(direction) => {
+                                        if (direction === 'right') {
+                                            setSets(
+                                                sets.filter(
+                                                    (currentSet) => currentSet.id !== set.id,
+                                                ),
+                                            );
+                                        }
+                                    }}
+                                    renderRightActions={LeftSwipeActions}
+                                >
+                                    <View className='flex w-full flex-row items-center justify-center bg-slate-900 py-2'>
+                                        <Text className='w-[10%] text-center text-lg font-semibold text-slate-100'>
+                                            {index + 1}
+                                        </Text>
+                                        <Text className='w-[30%] text-center font-semibold text-slate-100 '>
+                                            42.5 lb x 12
+                                        </Text>
+                                        <Text>{set.reps}</Text>
+                                        <View className='w-[25%] items-center justify-center'>
+                                            <Input
+                                                className='py-1 text-center'
+                                                size='lg'
+                                                width='70%'
+                                                keyboardType='decimal-pad'
+                                                // onChangeText={(text) => setSearchText(text)}
+                                                // value={searchText}
+                                            />
+                                        </View>
+                                        <View className='w-[25%] items-center justify-center'>
+                                            <Input
+                                                size='lg'
+                                                className='py-1 text-center'
+                                                width='70%'
+                                                keyboardType='decimal-pad'
+                                                // onChangeText={(text) => setSearchText(text)}
+                                                // value={searchText}
+                                            />
+                                        </View>
+                                        <View className='w-[10%] items-center justify-center'>
+                                            <FontAwesomeIcon
+                                                className='text-lg text-white'
+                                                icon={faCheck}
+                                            />
+                                        </View>
                                     </View>
-                                    <View className='w-[25%] items-center justify-center'>
-                                        <Input
-                                            size='lg'
-                                            className='py-1 text-center'
-                                            width='70%'
-                                            keyboardType='decimal-pad'
-                                            // onChangeText={(text) => setSearchText(text)}
-                                            // value={searchText}
-                                        />
-                                    </View>
-                                    <View className='w-[10%] items-center justify-center'>
-                                        <FontAwesomeIcon
-                                            className='text-lg text-white'
-                                            icon={faCheck}
-                                        />
-                                    </View>
-                                </View>
+                                </Swipeable>
                             );
                         })}
                         <Button
-                            onPress={() => setSets([...sets, {}])}
+                            onPress={() => setSets([...sets, { id: uuid() }])}
                             size='xs'
                             className='my-2 w-full bg-slate-800'
                             icon={faPlus}

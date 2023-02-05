@@ -1,4 +1,5 @@
 import 'react-native-url-polyfill/auto';
+import 'react-native-get-random-values';
 
 import { LinearGradient } from 'expo-linear-gradient';
 import { extendTheme, NativeBaseProvider } from 'native-base';
