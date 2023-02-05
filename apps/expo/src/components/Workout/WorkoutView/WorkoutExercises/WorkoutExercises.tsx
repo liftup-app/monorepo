@@ -3,13 +3,13 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons/faPlus';
 import { FontAwesomeIcon as BaseFontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { Set } from '@liftup/mocks';
 import { Exercise } from '@liftup/mocks/src/mockExercises';
-import { Input } from 'native-base';
 import { styled } from 'nativewind';
 import { useState } from 'react';
 import { Text, View } from 'react-native';
 import colors from 'tailwindcss/colors';
 
 import Button from '../../../design-system/Button/Button';
+import Input from '../../../design-system/Input/Input';
 
 const FontAwesomeIcon = styled(BaseFontAwesomeIcon);
 
@@ -53,32 +53,22 @@ export default function WorkoutExercises({ exercises }: WorkoutExercisesProps) {
                                     <Text>{set.reps}</Text>
                                     <View className='w-[25%] items-center justify-center'>
                                         <Input
-                                            width='4/5'
+                                            className='py-1 text-center'
+                                            size='lg'
+                                            width='70%'
                                             keyboardType='decimal-pad'
                                             // onChangeText={(text) => setSearchText(text)}
                                             // value={searchText}
-                                            _focus={{
-                                                borderColor: colors.slate['100'],
-                                                selectionColor: colors.slate['100'],
-                                            }}
-                                            borderColor={colors.slate['500']}
-                                            selectionColor={colors.slate['500']}
-                                            placeholderTextColor={colors.slate['400']}
                                         />
                                     </View>
                                     <View className='w-[25%] items-center justify-center'>
                                         <Input
-                                            width='4/5'
+                                            size='lg'
+                                            className='py-1 text-center'
+                                            width='70%'
                                             keyboardType='decimal-pad'
                                             // onChangeText={(text) => setSearchText(text)}
                                             // value={searchText}
-                                            _focus={{
-                                                borderColor: colors.slate['100'],
-                                                selectionColor: colors.slate['100'],
-                                            }}
-                                            borderColor={colors.slate['500']}
-                                            selectionColor={colors.slate['500']}
-                                            placeholderTextColor={colors.slate['400']}
                                         />
                                     </View>
                                     <View className='w-[10%] items-center justify-center'>
