@@ -41,6 +41,7 @@ export default function Workout() {
     const [showFinishWorkoutModal, setShowFinishWorkoutModal] = useState(false);
     const [exercises, setExercises] = useState<Exercise[]>([]);
 
+    console.log(exercises);
     const currentTime = useTimer();
 
     const sheetRef = useRef<BottomSheet>(null);
@@ -117,6 +118,7 @@ export default function Workout() {
                     <WorkoutView
                         time={time.msToYoutubeTimeString(currentTime)}
                         name={name}
+                        exercises={exercises}
                         onNameChange={(event) => setName(event.nativeEvent.text)}
                         onExpand={handleOpen}
                         onAddExercise={() => setShowAddExerciseModal(true)}

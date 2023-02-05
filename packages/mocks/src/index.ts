@@ -5,6 +5,7 @@ import {
     MOCK_EXERCISES_ORGANIZED,
     organizeMockExercises,
 } from './mockExercises';
+import { Set } from './mockSets';
 
 export { MOCK_EXERCISE, MOCK_EXERCISES, MOCK_EXERCISES_ORGANIZED, organizeMockExercises };
-export type { OrganizedExercises };
+export type { OrganizedExercises, Set };
