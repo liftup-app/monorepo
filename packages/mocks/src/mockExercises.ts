@@ -10,6 +10,7 @@ export type ExerciseCategory =
     | 'Full Body';
 
 export interface Exercise {
+    id?: string;
     name: string;
     category: ExerciseCategory;
 }

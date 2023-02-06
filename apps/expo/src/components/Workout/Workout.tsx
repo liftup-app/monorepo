@@ -4,15 +4,14 @@ import BottomSheet, { BottomSheetBackdrop, BottomSheetScrollView } from '@gorhom
 import { BottomSheetDefaultBackdropProps } from '@gorhom/bottom-sheet/lib/typescript/components/bottomSheetBackdrop/types';
 import { MOCK_EXERCISES } from '@liftup/mocks';
 import { Exercise } from '@liftup/mocks/src/mockExercises';
-import { time } from '@liftup/utils';
 import { styled } from 'nativewind';
 import { useCallback, useRef, useState } from 'react';
 import { StyleSheet, Text } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import colors from 'tailwindcss/colors';
+import { v4 as uuid } from 'uuid';
 
 import useGlobalStore from '../../hooks/useGlobalStore';
-import useTimer from '../../hooks/useTimer';
 import AlertDialog from '../design-system/AlertDialog/AlertDialog';
 import ExerciseListModal from '../ExerciseListModal/ExerciseListModal';
 import WorkoutView from './WorkoutView/WorkoutView';
@@ -41,8 +40,7 @@ export default function Workout() {
     const [showFinishWorkoutModal, setShowFinishWorkoutModal] = useState(false);
     const [exercises, setExercises] = useState<Exercise[]>([]);
 
-    console.log(exercises);
-    const currentTime = useTimer();
+    const [startTime] = useState(new Date());
 
     const sheetRef = useRef<BottomSheet>(null);
     const handleOpen = useCallback(() => {
@@ -92,7 +90,7 @@ export default function Workout() {
             <ExerciseListModal
                 exercises={MOCK_EXERCISES}
                 onClickExercise={(exercise) => {
-                    setExercises([...exercises, exercise]);
+                    setExercises([...exercises, { ...exercise, id: uuid() }]);
                     setShowAddExerciseModal(false);
                 }}
                 isOpen={showAddExerciseModal}
@@ -116,12 +114,19 @@ export default function Workout() {
                     }}
                 >
                     <WorkoutView
-                        time={time.msToYoutubeTimeString(currentTime)}
+                        startTime={startTime}
                         name={name}
                         exercises={exercises}
                         onNameChange={(event) => setName(event.nativeEvent.text)}
                         onExpand={handleOpen}
                         onAddExercise={() => setShowAddExerciseModal(true)}
+                        onDeleteExercise={(exercise) => {
+                            setExercises(
+                                exercises.filter(
+                                    (currentExercise) => currentExercise.id !== exercise.id,
+                                ),
+                            );
+                        }}
                         onDiscardWorkout={() => {
                             if (exercises.length === 0) {
                                 setRecordingWorkout(false);

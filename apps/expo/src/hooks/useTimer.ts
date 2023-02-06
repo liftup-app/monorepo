@@ -1,6 +1,7 @@
+import { time } from '@liftup/utils';
 import { useEffect, useState } from 'react';
 
-const useTimer = (initialTime = new Date(), pingDelay = 100): number => {
+const useTimer = (initialTime = new Date(), pingDelay = 100): string => {
     const [startTime] = useState(initialTime);
     const [currentTime, setCurrentTime] = useState(initialTime);
 
@@ -12,7 +13,7 @@ const useTimer = (initialTime = new Date(), pingDelay = 100): number => {
         return () => clearInterval(interval);
     }, [pingDelay]);
 
-    return currentTime.getTime() - startTime.getTime();
+    return time.msToYoutubeTimeString(currentTime.getTime() - startTime.getTime());
 };
 
 export default useTimer;
