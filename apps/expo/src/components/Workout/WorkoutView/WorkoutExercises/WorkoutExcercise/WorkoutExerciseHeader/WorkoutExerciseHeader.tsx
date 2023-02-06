@@ -32,7 +32,7 @@ export default function WorkoutExerciseHeader({
                         <Pressable
                             {...triggerProps}
                             accessibilityLabel='Open Exercise Options'
-                            className='flex items-center justify-center rounded-full bg-white/10 p-1'
+                            className='flex items-center justify-center rounded-full bg-white/10 p-2'
                         >
                             <FontAwesomeIcon className='text-lg text-white' icon={faEllipsis} />
                         </Pressable>
