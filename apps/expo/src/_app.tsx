@@ -3,7 +3,7 @@ import 'react-native-url-polyfill/auto';
 import { LinearGradient } from 'expo-linear-gradient';
 import { extendTheme, NativeBaseProvider } from 'native-base';
 import React from 'react';
-import colors from 'tailwindcss/colors';
+import { slate } from 'tailwindcss/colors';
 
 import AuthProvider from './components/AuthProvider';
 import Main from './screens/Main/Main';
@@ -17,7 +17,7 @@ const config = {
 
 export default function App() {
     const theme = extendTheme({
-        colors: { ...colors, primary: colors.slate },
+        colors: { primary: slate },
         config: {
             initialColorMode: 'dark',
         },

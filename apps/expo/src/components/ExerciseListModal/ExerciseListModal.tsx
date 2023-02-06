@@ -1,9 +1,8 @@
-import { OrganizedExercises } from '@liftup/mocks';
 import { Exercise, organizeMockExercises } from '@liftup/mocks/src/mockExercises';
 import { IModalProps, Input, Modal } from 'native-base';
 import { useMemo, useState } from 'react';
 import { Text, View } from 'react-native';
-import colors from 'tailwindcss/colors';
+import { slate } from 'tailwindcss/colors';
 
 import ExerciseList from './ExerciseList/ExerciseList';
 
@@ -42,13 +41,13 @@ export default function ExerciseListModal({
                             onChangeText={(text) => setSearchText(text)}
                             value={searchText}
                             _focus={{
-                                borderColor: colors.slate['100'],
-                                selectionColor: colors.slate['100'],
+                                borderColor: slate['100'],
+                                selectionColor: slate['100'],
                             }}
-                            borderColor={colors.slate['500']}
-                            selectionColor={colors.slate['500']}
+                            borderColor={slate['500']}
+                            selectionColor={slate['500']}
                             placeholder='Search'
-                            placeholderTextColor={colors.slate['400']}
+                            placeholderTextColor={slate['400']}
                         />
                     </View>
                 </Modal.Header>

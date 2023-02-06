@@ -8,7 +8,7 @@ import { styled } from 'nativewind';
 import { useCallback, useRef, useState } from 'react';
 import { StyleSheet, Text } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import colors from 'tailwindcss/colors';
+import { slate } from 'tailwindcss/colors';
 import { v4 as uuid } from 'uuid';
 
 import useGlobalStore from '../../hooks/useGlobalStore';
@@ -103,8 +103,8 @@ export default function Workout() {
                 bottomInset={bottomTabBarHeight || undefined}
                 topInset={safeAreaTop}
                 backdropComponent={renderBackdrop}
-                backgroundStyle={{ backgroundColor: colors.slate['900'] }}
-                handleIndicatorStyle={{ backgroundColor: colors.slate['200'] }}
+                backgroundStyle={{ backgroundColor: slate['900'] }}
+                handleIndicatorStyle={{ backgroundColor: slate['200'] }}
             >
                 <BottomSheetScrollView
                     contentContainerStyle={{

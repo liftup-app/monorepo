@@ -49,14 +49,19 @@ export const useSignUpWithPassword = async () => {
 };
 
 export const signUpWithGoogle = async () => {
+    console.log('start');
     const redirectUrl = makeRedirectUri({
         path: '/auth/callback',
     });
+
+    console.log(redirectUrl);
 
     const authResponse = await startAsync({
         authUrl: `${process.env.LIFTUP_SUPABASE_URL}/auth/v1/authorize?provider=google&redirect_to=${redirectUrl}`,
         returnUrl: redirectUrl,
     });
+
+    console.log(authResponse);
 
     if (authResponse.type === 'success') {
         await supabase.auth.setSession({

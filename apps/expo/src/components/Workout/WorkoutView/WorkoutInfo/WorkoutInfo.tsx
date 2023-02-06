@@ -10,7 +10,7 @@ import {
     TextInputChangeEventData,
     View,
 } from 'react-native';
-import colors from 'tailwindcss/colors';
+import { slate, white } from 'tailwindcss/colors';
 
 interface WorkoutInfoProps {
     time: string;
@@ -33,9 +33,9 @@ export default function WorkoutInfo({ time, name, onNameChange }: WorkoutInfoPro
                 <TextInput
                     ref={textInputRef}
                     onChange={onNameChange}
-                    selectionColor='#fff'
+                    selectionColor={white}
                     placeholder='Workout Name'
-                    placeholderTextColor={colors.slate[500]}
+                    placeholderTextColor={slate[500]}
                     className='p-2 text-xl font-semibold text-white focus:border focus:border-slate-300'
                 >
                     {name}
