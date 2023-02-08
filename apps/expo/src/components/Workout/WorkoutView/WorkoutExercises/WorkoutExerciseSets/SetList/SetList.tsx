@@ -22,7 +22,7 @@ export interface SetListProps {
 
 function UnderlayLeft() {
     return (
-        <Animated.View className='flex h-4/5 w-full flex-row items-center justify-center bg-red-600'>
+        <Animated.View className='flex h-4/5 w-full flex-row items-center justify-center bg-red-500'>
             <Text className='text-lg text-white'>DELETE</Text>
         </Animated.View>
     );
