@@ -12,8 +12,10 @@ import { slate } from 'tailwindcss/colors';
 import { v4 as uuid } from 'uuid';
 
 import useGlobalStore from '../../hooks/useGlobalStore';
+import useTimer from '../../hooks/useTimer';
 import AlertDialog from '../design-system/AlertDialog/AlertDialog';
 import ExerciseListModal from '../ExerciseListModal/ExerciseListModal';
+import WorkoutHeader from './WorkoutView/WorkoutHeader/WorkoutHeader';
 import WorkoutView from './WorkoutView/WorkoutView';
 
 const FontAwesomeIcon = styled(BaseFontAwesomeIcon);
@@ -28,7 +30,7 @@ const styles = StyleSheet.create({
     },
 });
 
-const SNAP_POINTS = ['12%', '100%'];
+const SNAP_POINTS = ['10%', '100%'];
 
 export default function Workout() {
     const { top: safeAreaTop } = useSafeAreaInsets();
@@ -40,7 +42,7 @@ export default function Workout() {
     const [showFinishWorkoutModal, setShowFinishWorkoutModal] = useState(false);
     const [exercises, setExercises] = useState<Exercise[]>([]);
 
-    const [startTime] = useState(new Date());
+    const time = useTimer(new Date());
 
     const sheetRef = useRef<BottomSheet>(null);
     const handleOpen = useCallback(() => {
@@ -102,6 +104,25 @@ export default function Workout() {
                 snapPoints={SNAP_POINTS}
                 bottomInset={bottomTabBarHeight || undefined}
                 topInset={safeAreaTop}
+                // eslint-disable-next-line react/no-unstable-nested-components
+                handleComponent={(props) => {
+                    return (
+                        <WorkoutHeader
+                            onExpand={handleOpen}
+                            onFinishWorkout={() => {
+                                if (exercises.length === 0) {
+                                    setRecordingWorkout(false);
+                                } else {
+                                    setShowFinishWorkoutModal(true);
+                                }
+                            }}
+                            name={name}
+                            time={time}
+                            {...props}
+                        />
+                    );
+                }}
+                enableContentPanningGesture={false}
                 backdropComponent={renderBackdrop}
                 backgroundStyle={{ backgroundColor: slate['900'] }}
                 handleIndicatorStyle={{ backgroundColor: slate['200'] }}
@@ -114,11 +135,10 @@ export default function Workout() {
                     }}
                 >
                     <WorkoutView
-                        startTime={startTime}
+                        time={time}
                         name={name}
                         exercises={exercises}
                         onNameChange={(event) => setName(event.nativeEvent.text)}
-                        onExpand={handleOpen}
                         onAddExercise={() => setShowAddExerciseModal(true)}
                         onDeleteExercise={(exercise) => {
                             setExercises(
@@ -132,13 +152,6 @@ export default function Workout() {
                                 setRecordingWorkout(false);
                             } else {
                                 setShowCancelWorkoutModal(true);
-                            }
-                        }}
-                        onFinishWorkout={() => {
-                            if (exercises.length === 0) {
-                                setRecordingWorkout(false);
-                            } else {
-                                setShowFinishWorkoutModal(true);
                             }
                         }}
                     />

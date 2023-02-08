@@ -1,13 +1,14 @@
-import { GestureResponderEvent, Pressable, Text, View } from 'react-native';
+import { BottomSheetHandle, BottomSheetHandleProps } from '@gorhom/bottom-sheet';
+import { GestureResponderEvent, Pressable, Text } from 'react-native';
+import Animated, { useAnimatedStyle } from 'react-native-reanimated';
 
 import Button from '../../../design-system/Button/Button';
 
-interface WorkoutHeaderProps {
+interface WorkoutHeaderProps extends BottomSheetHandleProps {
     time: string;
     name: string;
     onExpand?: () => void;
     onFinishWorkout?: (event: GestureResponderEvent) => void | null;
-    amountExpanded?: number;
 }
 
 export default function WorkoutHeader({
@@ -15,29 +16,48 @@ export default function WorkoutHeader({
     name,
     onExpand,
     onFinishWorkout,
-    amountExpanded = 0,
+    animatedIndex,
+    ...handleProps
 }: WorkoutHeaderProps) {
+    const headerFadeStyle = useAnimatedStyle(
+        () => ({
+            opacity: 1 - animatedIndex.value,
+        }),
+        [animatedIndex, animatedIndex.value],
+    );
+
+    const buttonFadeStyle = useAnimatedStyle(
+        () => ({
+            opacity: animatedIndex.value,
+        }),
+        [animatedIndex, animatedIndex.value],
+    );
+
     return (
-        <View className='flex h-20 items-center justify-center'>
+        <BottomSheetHandle animatedIndex={animatedIndex} {...handleProps}>
             <Pressable
-                style={{ opacity: 1 - amountExpanded }}
-                className='absolute top-0 flex w-full items-center justify-start'
-                onPress={amountExpanded < 0.15 ? onExpand : undefined}
+                onPress={onExpand}
+                className='flex h-20 w-full items-center justify-start border-b border-slate-800'
             >
-                <Text className='text-lg font-semibold text-white'>{name}</Text>
-                <Text className='text-sm font-semibold text-slate-300'>{time}</Text>
-            </Pressable>
-            <View
-                style={{ opacity: amountExpanded }}
-                className='absolute top-0 flex w-full flex-row items-center justify-end'
-            >
-                <Button
-                    onPress={amountExpanded > 0.85 ? onFinishWorkout : undefined}
-                    className='bg-emerald-600'
+                <Animated.View
+                    style={headerFadeStyle}
+                    className='absolute top-2 flex w-full items-center justify-start'
                 >
-                    Finish
-                </Button>
-            </View>
-        </View>
+                    <Text className='text-lg font-semibold text-white'>{name}</Text>
+                    <Text className='text-sm font-semibold text-slate-300'>{time}</Text>
+                </Animated.View>
+                <Animated.View
+                    style={buttonFadeStyle}
+                    className='absolute top-2 right-4 flex w-full flex-row items-center justify-end'
+                >
+                    <Button
+                        onPress={animatedIndex.value > 0.85 ? onFinishWorkout : undefined}
+                        className='bg-emerald-600'
+                    >
+                        Finish
+                    </Button>
+                </Animated.View>
+            </Pressable>
+        </BottomSheetHandle>
     );
 }

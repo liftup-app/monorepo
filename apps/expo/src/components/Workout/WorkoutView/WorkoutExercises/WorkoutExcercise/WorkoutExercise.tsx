@@ -6,7 +6,6 @@ import { View } from 'react-native';
 import { v4 as uuid } from 'uuid';
 
 import Button from '../../../../design-system/Button/Button';
-import SetListHeader from '../WorkoutExerciseSets/SetListHeader/SetListHeader';
 import WorkoutExerciseSets from '../WorkoutExerciseSets/WorkoutExerciseSets';
 import WorkoutExerciseHeader from './WorkoutExerciseHeader/WorkoutExerciseHeader';
 
@@ -23,6 +22,7 @@ export default function WorkoutExcercise({ exercise, onDeleteExercise }: Workout
             <WorkoutExerciseHeader exercise={exercise} onDeleteExercise={onDeleteExercise} />
             <WorkoutExerciseSets
                 sets={sets}
+                setSets={setSets}
                 onDeleteSet={(set) =>
                     setSets(sets.filter((currentSet) => currentSet.id !== set.id))
                 }
