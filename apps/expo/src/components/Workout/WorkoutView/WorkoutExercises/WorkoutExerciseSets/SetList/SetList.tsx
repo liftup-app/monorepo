@@ -5,7 +5,7 @@ import { styled } from 'nativewind';
 import { Dispatch, SetStateAction, useCallback, useRef, useState } from 'react';
 import { Dimensions, LayoutAnimation, Text, View } from 'react-native';
 import DraggableFlatList, { RenderItemParams } from 'react-native-draggable-flatlist';
-import Animated from 'react-native-reanimated';
+import Animated, { FadeIn, SlideInDown, StretchInY } from 'react-native-reanimated';
 import SwipeableItem from 'react-native-swipeable-item';
 
 import Input from '../../../../../design-system/Input/Input';
@@ -66,13 +66,12 @@ export default function SetList({ sets, onDeleteSet }: SetListProps) {
 
 interface SetItemProps {
     set: Set;
-    drag: () => void;
     index?: number;
     onDelete?: () => void;
     itemRefs: React.MutableRefObject<Map<any, any>>;
 }
 
-function SetItem({ set, index, onDelete, drag, itemRefs }: SetItemProps) {
+function SetItem({ set, index, onDelete, itemRefs }: SetItemProps) {
     const [snapPointsLeft] = useState<number[]>([Dimensions.get('window').width]);
 
     return (
@@ -93,7 +92,10 @@ function SetItem({ set, index, onDelete, drag, itemRefs }: SetItemProps) {
             snapPointsLeft={snapPointsLeft}
             key={set.id}
         >
-            <View className='flex w-full flex-row items-center justify-center bg-slate-900 py-2'>
+            <Animated.View
+                entering={FadeIn}
+                className='flex w-full flex-row items-center justify-center bg-slate-900 py-2'
+            >
                 <Text className='w-[10%] text-center text-lg font-semibold text-slate-100'>
                     {index}
                 </Text>
@@ -124,7 +126,7 @@ function SetItem({ set, index, onDelete, drag, itemRefs }: SetItemProps) {
                 <View className='w-[10%] items-center justify-center'>
                     <FontAwesomeIcon className='text-lg text-white' icon={faCheck} />
                 </View>
-            </View>
+            </Animated.View>
         </SwipeableItem>
     );
 }
