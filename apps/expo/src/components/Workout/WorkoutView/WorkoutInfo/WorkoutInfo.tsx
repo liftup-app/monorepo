@@ -25,7 +25,7 @@ export default function WorkoutInfo({ time, name, onNameChange }: WorkoutInfoPro
     const textInputRef = useRef<BaseTextInput>(null);
 
     return (
-        <View className='flex w-full items-start justify-center'>
+        <View className='flex w-full items-start justify-center px-4 pt-12'>
             <Pressable
                 onPress={() => textInputRef?.current?.focus()}
                 className='flex flex-row items-center justify-start space-x-2'

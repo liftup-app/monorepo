@@ -16,11 +16,7 @@ export default function NavigationContainer() {
 
     return (
         <BaseNavigationContainer>
-            <Tab.Navigator
-                screenOptions={{ tabBarStyle: { height: 112 } }}
-                tabBar={BottomTabBar}
-                initialRouteName='Home'
-            >
+            <Tab.Navigator tabBar={BottomTabBar} initialRouteName='Home'>
                 {ROUTES.map((route) => {
                     return (
                         <Tab.Screen

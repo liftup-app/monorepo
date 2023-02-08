@@ -4,9 +4,10 @@ import BottomSheet, { BottomSheetBackdrop, BottomSheetScrollView } from '@gorhom
 import { BottomSheetDefaultBackdropProps } from '@gorhom/bottom-sheet/lib/typescript/components/bottomSheetBackdrop/types';
 import { MOCK_EXERCISES } from '@liftup/mocks';
 import { Exercise } from '@liftup/mocks/src/mockExercises';
+import { View } from 'native-base';
 import { styled } from 'nativewind';
 import { useCallback, useRef, useState } from 'react';
-import { StyleSheet, Text } from 'react-native';
+import { Pressable, StyleSheet, Text } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { slate } from 'tailwindcss/colors';
 import { v4 as uuid } from 'uuid';
@@ -14,6 +15,7 @@ import { v4 as uuid } from 'uuid';
 import useGlobalStore from '../../hooks/useGlobalStore';
 import useTimer from '../../hooks/useTimer';
 import AlertDialog from '../design-system/AlertDialog/AlertDialog';
+import Button from '../design-system/Button/Button';
 import ExerciseListModal from '../ExerciseListModal/ExerciseListModal';
 import WorkoutHeader from './WorkoutView/WorkoutHeader/WorkoutHeader';
 import WorkoutView from './WorkoutView/WorkoutView';
@@ -30,7 +32,7 @@ const styles = StyleSheet.create({
     },
 });
 
-const SNAP_POINTS = ['10%', '100%'];
+const SNAP_POINTS = ['13%', '100%'];
 
 export default function Workout() {
     const { top: safeAreaTop } = useSafeAreaInsets();
@@ -104,36 +106,29 @@ export default function Workout() {
                 snapPoints={SNAP_POINTS}
                 bottomInset={bottomTabBarHeight || undefined}
                 topInset={safeAreaTop}
-                // eslint-disable-next-line react/no-unstable-nested-components
-                handleComponent={(props) => {
-                    return (
-                        <WorkoutHeader
-                            onExpand={handleOpen}
-                            onFinishWorkout={() => {
-                                if (exercises.length === 0) {
-                                    setRecordingWorkout(false);
-                                } else {
-                                    setShowFinishWorkoutModal(true);
-                                }
-                            }}
-                            name={name}
-                            time={time}
-                            {...props}
-                        />
-                    );
-                }}
-                enableContentPanningGesture={false}
                 backdropComponent={renderBackdrop}
                 backgroundStyle={{ backgroundColor: slate['900'] }}
                 handleIndicatorStyle={{ backgroundColor: slate['200'] }}
             >
                 <BottomSheetScrollView
+                    stickyHeaderIndices={[0]}
                     contentContainerStyle={{
                         alignItems: 'center',
                         justifyContent: 'flex-start',
-                        paddingHorizontal: 16,
                     }}
                 >
+                    <WorkoutHeader
+                        onExpand={handleOpen}
+                        onFinishWorkout={() => {
+                            if (exercises.length === 0) {
+                                setRecordingWorkout(false);
+                            } else {
+                                setShowFinishWorkoutModal(true);
+                            }
+                        }}
+                        name={name}
+                        time={time}
+                    />
                     <WorkoutView
                         time={time}
                         name={name}

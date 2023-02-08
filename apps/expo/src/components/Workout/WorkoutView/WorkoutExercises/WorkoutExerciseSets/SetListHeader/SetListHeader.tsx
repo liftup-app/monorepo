@@ -7,7 +7,7 @@ const FontAwesomeIcon = styled(BaseFontAwesomeIcon);
 
 export default function SetListHeader() {
     return (
-        <View className='flex w-full flex-row items-center justify-center'>
+        <View className='flex w-full flex-row items-center justify-center px-4'>
             <Text className='w-[10%] text-center text-lg text-white'>Set</Text>
             <Text className='w-[30%] text-center text-lg text-white'>Previous</Text>
             <Text className='w-[25%] text-center text-lg text-white'>lbs</Text>

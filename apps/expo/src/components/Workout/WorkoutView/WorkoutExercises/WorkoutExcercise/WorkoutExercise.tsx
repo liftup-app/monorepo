@@ -18,7 +18,7 @@ export default function WorkoutExcercise({ exercise, onDeleteExercise }: Workout
     const [sets, setSets] = useState<Set[]>([{ id: uuid() }]);
 
     return (
-        <View className='my-2 flex w-full items-start justify-center border-t border-slate-700 pt-2'>
+        <View className='my-2 flex w-full items-start justify-center border-b border-slate-700 pt-2'>
             <WorkoutExerciseHeader exercise={exercise} onDeleteExercise={onDeleteExercise} />
             <WorkoutExerciseSets
                 sets={sets}
@@ -27,14 +27,16 @@ export default function WorkoutExcercise({ exercise, onDeleteExercise }: Workout
                     setSets(sets.filter((currentSet) => currentSet.id !== set.id))
                 }
             />
-            <Button
-                onPress={() => setSets([...sets, { id: uuid() }])}
-                size='xs'
-                className='my-2 w-full bg-slate-800'
-                icon={faPlus}
-            >
-                Add Set
-            </Button>
+            <View className='flex w-full px-4 pb-2'>
+                <Button
+                    onPress={() => setSets([...sets, { id: uuid() }])}
+                    size='xs'
+                    className='my-2 flex w-full bg-slate-800'
+                    icon={faPlus}
+                >
+                    Add Set
+                </Button>
+            </View>
         </View>
     );
 }

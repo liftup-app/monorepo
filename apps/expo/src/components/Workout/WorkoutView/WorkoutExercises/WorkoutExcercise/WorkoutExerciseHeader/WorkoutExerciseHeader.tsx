@@ -19,7 +19,7 @@ export default function WorkoutExerciseHeader({
     onDeleteExercise,
 }: WorkoutExerciseHeaderProps) {
     return (
-        <View className='flex w-full flex-row items-center justify-between py-2'>
+        <View className='flex w-full flex-row items-center justify-between px-4 py-2'>
             <Text className='pl-2 text-lg font-semibold text-white'>{exercise.name}</Text>
             <Menu
                 backgroundColor={slate['800']}

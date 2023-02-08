@@ -22,7 +22,7 @@ export interface SetListProps {
 
 function UnderlayLeft() {
     return (
-        <Animated.View className='flex h-4/5 w-full flex-row items-center justify-center bg-red-500'>
+        <Animated.View className='flex h-4/5 w-full flex-row items-center justify-end bg-red-500 px-4'>
             <Text className='text-lg text-white'>DELETE</Text>
         </Animated.View>
     );
@@ -57,7 +57,6 @@ export default function SetList({ sets, onDeleteSet }: SetListProps) {
                 scrollEnabled={false}
                 data={sets}
                 renderItem={renderItem}
-                activationDistance={20}
                 keyExtractor={(item) => item.id!}
             />
         </View>
@@ -94,7 +93,7 @@ function SetItem({ set, index, onDelete, itemRefs }: SetItemProps) {
         >
             <Animated.View
                 entering={FadeIn}
-                className='flex w-full flex-row items-center justify-center bg-slate-900 py-2'
+                className='flex w-full flex-row items-center justify-center bg-slate-900 px-4 py-2'
             >
                 <Text className='w-[10%] text-center text-lg font-semibold text-slate-100'>
                     {index}

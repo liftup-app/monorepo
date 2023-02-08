@@ -21,7 +21,7 @@ export default function BottomTabBarButton({
         <Pressable
             {...props}
             disabled={focused}
-            className='h-full w-24 items-center justify-center space-y-2 text-slate-400'
+            className='h-full w-24 items-center justify-center space-y-0.5 text-slate-400'
         >
             {icon && (
                 <FontAwesomeIcon
