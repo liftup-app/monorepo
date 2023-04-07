@@ -5,9 +5,14 @@ import WorkoutExcercise from './WorkoutExcercise/WorkoutExercise';
 interface WorkoutExercisesProps {
     exercises: Exercise[];
     onDeleteExercise?: (exercise: Exercise) => void;
+    onReplaceExercise?: (currentExercise: Exercise, newExercise: Exercise) => void;
 }
 
-export default function WorkoutExercises({ exercises, onDeleteExercise }: WorkoutExercisesProps) {
+export default function WorkoutExercises({
+    exercises,
+    onDeleteExercise,
+    onReplaceExercise,
+}: WorkoutExercisesProps) {
     return (
         <>
             {exercises.map((exercise) => (
@@ -15,6 +20,7 @@ export default function WorkoutExercises({ exercises, onDeleteExercise }: Workou
                     key={exercise.id}
                     exercise={exercise}
                     onDeleteExercise={onDeleteExercise}
+                    onReplaceExercise={onReplaceExercise}
                 />
             ))}
         </>

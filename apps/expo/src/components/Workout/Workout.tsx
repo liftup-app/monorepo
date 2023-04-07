@@ -4,10 +4,9 @@ import BottomSheet, { BottomSheetBackdrop, BottomSheetScrollView } from '@gorhom
 import { BottomSheetDefaultBackdropProps } from '@gorhom/bottom-sheet/lib/typescript/components/bottomSheetBackdrop/types';
 import { MOCK_EXERCISES } from '@liftup/mocks';
 import { Exercise } from '@liftup/mocks/src/mockExercises';
-import { View } from 'native-base';
 import { styled } from 'nativewind';
 import { useCallback, useRef, useState } from 'react';
-import { Pressable, StyleSheet, Text } from 'react-native';
+import { StyleSheet, Text } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { slate } from 'tailwindcss/colors';
 import { v4 as uuid } from 'uuid';
@@ -15,7 +14,6 @@ import { v4 as uuid } from 'uuid';
 import useGlobalStore from '../../hooks/useGlobalStore';
 import useTimer from '../../hooks/useTimer';
 import AlertDialog from '../design-system/AlertDialog/AlertDialog';
-import Button from '../design-system/Button/Button';
 import ExerciseListModal from '../ExerciseListModal/ExerciseListModal';
 import WorkoutHeader from './WorkoutView/WorkoutHeader/WorkoutHeader';
 import WorkoutView from './WorkoutView/WorkoutView';
@@ -141,6 +139,18 @@ export default function Workout() {
                                     (currentExercise) => currentExercise.id !== exercise.id,
                                 ),
                             );
+                        }}
+                        onReplaceExercise={(exercise, newExercise) => {
+                            const index = exercises.findIndex((currentExercise) => {
+                                return currentExercise.id === exercise.id;
+                            });
+
+                            if (index !== -1) {
+                                const exercisesCopy = exercises.slice(0);
+
+                                exercisesCopy[index] = { ...newExercise, id: uuid() };
+                                setExercises(exercisesCopy);
+                            }
                         }}
                         onDiscardWorkout={() => {
                             if (exercises.length === 0) {

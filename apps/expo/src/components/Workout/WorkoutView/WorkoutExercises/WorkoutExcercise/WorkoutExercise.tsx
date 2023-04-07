@@ -12,14 +12,23 @@ import WorkoutExerciseHeader from './WorkoutExerciseHeader/WorkoutExerciseHeader
 export interface WorkoutExerciseProps {
     exercise: Exercise;
     onDeleteExercise?: (exercise: Exercise) => void;
+    onReplaceExercise?: (currentExercise: Exercise, newExercise: Exercise) => void;
 }
 
-export default function WorkoutExcercise({ exercise, onDeleteExercise }: WorkoutExerciseProps) {
+export default function WorkoutExcercise({
+    exercise,
+    onDeleteExercise,
+    onReplaceExercise,
+}: WorkoutExerciseProps) {
     const [sets, setSets] = useState<Set[]>([{ id: uuid() }]);
 
     return (
         <View className='my-2 flex w-full items-start justify-center border-b border-slate-700 pt-2'>
-            <WorkoutExerciseHeader exercise={exercise} onDeleteExercise={onDeleteExercise} />
+            <WorkoutExerciseHeader
+                exercise={exercise}
+                onDeleteExercise={onDeleteExercise}
+                onReplaceExercise={onReplaceExercise}
+            />
             <WorkoutExerciseSets
                 sets={sets}
                 setSets={setSets}
